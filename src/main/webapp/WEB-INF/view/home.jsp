@@ -142,6 +142,10 @@
 								Role(s):
 								<security:authentication property="principal.authorities" />
 							</h2>
+							<form:form action="${pageContext.request.contextPath}/profile"
+								method="post">
+								<button class="btn btn-primary py-2" type=submit>Profile</button>
+							</form:form>
 						</c:if>
 					</div>
 				</div>
