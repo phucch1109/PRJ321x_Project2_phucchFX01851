@@ -10,4 +10,6 @@ public interface CompanyDao {
 	public List<Company> getCompanies();
 	
 	public Company getCompanyById(int id);
+	
+	public int addNewCompany(String name);
 }

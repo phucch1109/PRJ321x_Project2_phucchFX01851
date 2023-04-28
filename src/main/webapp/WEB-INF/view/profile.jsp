@@ -15,6 +15,12 @@
 <meta name="author" content="" />
 <title>profile</title>
 
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/assets/user/assets/css/custom-bs.css">
 <link rel="stylesheet"
@@ -64,85 +70,133 @@
 	crossorigin="anonymous"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
+<!-- Reference Bootstrap files -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	
+
+<style>
+.error {
+	color: red
+}
+</style>
 </head>
 <body>
-<h2>Welcome ${user.username }</h2>
-<div style="padding-top: 30px" class="panel-body">
+	<h2>
+		Welcome User:
+		<security:authentication property="principal.username" />
+	</h2>
+	<h3>Profile:</h3>
+	<div>
 
+		<div id="loginbox" style="margin-top: 50px;"
+			class="mainbox col-md-3 col-md-offset-2 col-sm-6 col-sm-offset-2">
+
+			<div class="panel panel-primary">
+
+				<div class="panel-heading">
+					<div class="panel-title">User's profile</div>
+				</div>
+
+				<div style="padding-top: 30px" class="panel-body">
 
 					<!-- Registration Form -->
 					<form:form
-						action="${pageContext.request.contextPath}/register/processRegistrationForm"
+						action="${pageContext.request.contextPath}/updateProfile"
 						modelAttribute="user" class="form-horizontal">
-
-						<!-- Place for messages: error, alert etc ... -->
-						<div class="form-group">
-							<div class="col-xs-15">
-								<div>
-
-									<!-- Check for registration error -->
-									<c:if test="${registrationError != null}">
-
-										<div class="alert alert-danger col-xs-offset-1 col-xs-10">
-											${registrationError}</div>
-
-									</c:if>
-
-								</div>
-							</div>
-						</div>
-
-						<!-- User name -->
-						<div style="margin-bottom: 25px" class="input-group">
-							<span class="input-group-addon"><i
-								class="glyphicon glyphicon-user"></i></span>
-							<form:errors path="userName" cssClass="error" />
-							<form:input path="userName" placeholder="username (*)"
-								class="form-control" />
-						</div>
-
 						
-						<!-- First name -->
+
+						<!-- First name --><p>First name</p>
 						<div style="margin-bottom: 25px" class="input-group">
 							<span class="input-group-addon"><i
 								class="glyphicon glyphicon-user"></i></span>
 							<form:errors path="firstName" cssClass="error" />
 							<form:input path="firstName" placeholder="first name (*)"
-								class="form-control" />
+								class="form-control" disabled="true"/>
 						</div>
 
-						<!-- Last name -->
+						<!-- Last name --><p>Last name:</p>
 						<div style="margin-bottom: 25px" class="input-group">
 							<span class="input-group-addon"><i
 								class="glyphicon glyphicon-user"></i></span>
 							<form:errors path="lastName" cssClass="error" />
 							<form:input path="lastName" placeholder="last name (*)"
-								class="form-control" />
+								class="form-control" disabled="true"/>
 						</div>
 
-						<!-- Email -->
+						<!-- Email --><p>Email:</p>
 						<div style="margin-bottom: 25px" class="input-group">
 							<span class="input-group-addon"><i
 								class="glyphicon glyphicon-user"></i></span>
 							<form:errors path="email" cssClass="error" />
 							<form:input path="email" placeholder="email (*)"
-								class="form-control" />
+								class="form-control" disabled="true"/>
 						</div>
 
-						<!-- Phone number -->
+						<!-- Phone number --><p>Phone number:</p>
 						<div style="margin-bottom: 25px" class="input-group">
 							<span class="input-group-addon"><i
 								class="glyphicon glyphicon-user"></i></span>
 							<form:errors path="phoneNumber" cssClass="error" />
 							<form:input path="phoneNumber" placeholder="phone number (*)"
-								class="form-control" />
+								class="form-control" disabled="true"/>
 						</div>
+						
+						<!-- Description --><p>Description:</p>
+						<div style="margin-bottom: 25px" class="input-group">
+							<span class="input-group-addon"><i
+								class="glyphicon glyphicon-user"></i></span>
+							<form:errors path="description" cssClass="error" />
+							<form:textarea path="description" placeholder="description"
+								class="form-control" disabled="true"/>
+						</div>
+						
+						<!-- Company --><p>Company:</p>
+						<div style="margin-bottom: 25px" class="input-group">
+							<span class="input-group-addon"><i
+								class="glyphicon glyphicon-user"></i></span>
+							
+							<form:input path="company" disabled="true"/>
+						</div>
+	
 
-					
-
+						<!-- Edit Button -->
+						<div style="margin-top: 10px" class="form-group">
+							<div class="col-sm-6 controls">
+								<button class="btn btn-primary" id="edit-input" type="button">Edit</button>
+							</div>
+						</div>
+						<!-- Confirm Button -->
+						<div style="margin-top: 10px" class="form-group">
+							<div class="col-sm-6 controls">
+								<button type="submit" class="btn btn-primary" id="confirm-btn" style="display:none">Confirm</button>
+							</div>
+						</div>
 
 
 					</form:form>
 
 				</div>
+
+			</div>
+		</div>
+	</div>
+	<script
+		src="${pageContext.request.contextPath}/assets/user/assets/js/JQuery3.3.1.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+		crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest"
+		crossorigin="anonymous"></script>
+
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/assets/user/assets/js/scripts.js"></script>
 </body>

@@ -17,9 +17,11 @@ public class PostDaoImpl implements PostDao{
 	@Autowired
 	SessionFactory sessionFactory;
 	
+	
+	//get top 5 newest posts
 	public List<Post> top5Post() {
 		Session currentSession = sessionFactory.getCurrentSession(); 
-		Query<Post> query = currentSession.createQuery("from Post" , Post.class);
+		Query<Post> query = currentSession.createQuery("from Post order by dateCreated" , Post.class);
 		query.setMaxResults(5);
 		List<Post> posts = query.getResultList();
 		return posts;

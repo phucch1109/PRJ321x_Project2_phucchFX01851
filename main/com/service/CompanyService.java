@@ -8,4 +8,6 @@ public interface CompanyService {
 	public List<Company> top5companies();
 	
 	public List<Company> getCompanies();
+	
+	public int addNewCompany(String name);
 }

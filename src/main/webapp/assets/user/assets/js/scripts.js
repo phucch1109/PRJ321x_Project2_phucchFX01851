@@ -1,11 +1,4 @@
-/*!
-    * Start Bootstrap - SB Admin v7.0.2 (https://startbootstrap.com/template/sb-admin)
-    * Copyright 2013-2021 Start Bootstrap
-    * Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-sb-admin/blob/master/LICENSE)
-    */
-    // 
-// Scripts
-// 
+
 
 window.addEventListener('DOMContentLoaded', event => {
     // Toggle the side navigation
@@ -94,9 +87,55 @@ if(searchParams.has('alertMessage')) {
 			$('#exampleModalUpdate').css("display", "none");
 		});
 		
+		
+//		register page
 		/*hide or show company input when role dropdown is selected*/
+		var addCompanyStatus = 0; //0 is employee selected ; 1 is choosing existing company ; 2 is input new company
 		$('#roleId1').change(function() {
+			if(addCompanyStatus== 0) {
+				$("#company-input").css("display", "inline-table");
+				$("#new-company-btn").css("display", "block");
+				$('#companyId1').attr('disabled',false);
+				addCompanyStatus =1 ;
+			}else{
+			$("#new-company-input").css("display", "none");
+			$('#new-company-input-text').attr('disabled',true);
+			$('#companyId1').attr('disabled',true);
+			$("#company-input").css("display", "none");
+			$("#new-company-btn").css("display", "none");
+			addCompanyStatus = 0;
+			}
 			
-			$("#company-input").toggle();
+			
+			
 		});
+		
+		/* hide or show new input company */
+		$('#new-company-btn').click(function() {
+            if(addCompanyStatus==1) {
+				$("#company-input").css("display", "none");
+				$("#new-company-input").css("display", "inline-table");
+				$('#companyId1').attr('disabled',true);
+				$('#new-company-input-text').attr('disabled',false);
+				addCompanyStatus = 2;		
+				alert (addCompanyStatus);  
+			}
+			else{
+				$("#company-input").css("display", "inline-table");
+				$("#new-company-input").css("display", "none");
+				$('#companyId1').attr('disabled',false);
+				$('#new-company-input-text').attr('disabled',true);
+				addCompanyStatus=1;		
+				 alert (addCompanyStatus);  
+			} 
+		});
+		
+		/*all input ediable if click on edit button*/ 
+		$('#edit-input').click(function() {
+			$('.form-control').attr('disabled',false);
+			$(this).css('display', "none");
+			$('#confirm-btn').css('display', "inline-block");
+		});
+		
+		
 		

@@ -88,6 +88,12 @@ public class Company {
 	public void setUsers(List<User> users) {
 		this.users = users;
 	}
+
+	@Override
+	public String toString() {
+		return "Company [id=" + id + ", name=" + name + ", address=" + address + ", phoneNumber=" + phoneNumber
+				+ ", description=" + description + ", users=" + users + ", posts=" + posts + "]";
+	}
 	
 	
 }

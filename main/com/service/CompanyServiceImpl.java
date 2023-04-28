@@ -26,4 +26,8 @@ public class CompanyServiceImpl implements CompanyService{
 		return companyDao.getCompanies();
 	}
 	
+	@Transactional
+	public int addNewCompany(String name) {
+		return companyDao.addNewCompany(name);
+	}
 }

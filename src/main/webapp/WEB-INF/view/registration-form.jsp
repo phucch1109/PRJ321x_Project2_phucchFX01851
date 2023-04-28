@@ -205,7 +205,20 @@
 								</c:forEach>
 							</select>
 						</div>
-
+						<!-- new company input -->
+						<div style="margin-bottom: 25px;display:none" class="input-group" id="new-company-input">
+							<span class="input-group-addon"><i
+								class="glyphicon glyphicon-user"></i></span>
+							<input type="text" name="companyName" placeholder="new company name(*)"
+								class="form-control" disabled="disabled" id="new-company-input-text"/>
+						</div>
+						
+						<!-- show/hide company button -->
+						<div style="margin-top: 10px;display: none;" class="form-group" id="new-company-btn" >
+							<div class="col-sm-6 controls">
+								<button type="button" class="btn btn-primary">Add new company</button>
+							</div>
+						</div>
 						<!-- Register Button -->
 						<div style="margin-top: 10px" class="form-group">
 							<div class="col-sm-6 controls">

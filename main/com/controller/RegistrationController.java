@@ -48,12 +48,10 @@ public class RegistrationController {
 	}	
 	
 	@GetMapping("/showRegistrationForm")
-	public String showMyLoginPage(Model theModel) {
-		
+	public String showMyLoginPage(Model theModel) {		
 		theModel.addAttribute("crmUser", new CrmUser());
 		theModel.addAttribute("roles", roleService.getRoles());
 		theModel.addAttribute("companies", companyService.getCompanies());
-		
 		return "registration-form";
 	}
 
@@ -63,30 +61,33 @@ public class RegistrationController {
 				BindingResult theBindingResult, 
 				Model theModel,
 				 @RequestParam("roleId") int roleId,
-				 @RequestParam("companyId") int companyId) {
+				 @RequestParam(value = "companyId", defaultValue = "-1") int companyId,
+				 @RequestParam(value = "companyName", defaultValue = "") String companyName) {
+				
 		
 		String userName = theCrmUser.getUserName();
 		logger.info("Processing registration form for: " + userName);
 		logger.info(theCrmUser.getEmail() +" " + theCrmUser.getPassword());
 		// form validation
 		 if (theBindingResult.hasErrors()){
-			 theModel.addAttribute("roles", roleService.getRoles());
-			 theModel.addAttribute("companies", companyService.getCompanies());
-			 return "registration-form";
+			 theModel.addAttribute("registrationError", "something went wrong");
+				return showMyLoginPage(theModel);
 	        }
 
 		// check the database if user already exists
         User existing = userService.findByUserName(userName);
         if (existing != null){
-        	theModel.addAttribute("crmUser", new CrmUser());
 			theModel.addAttribute("registrationError", "User name already exists.");
-			logger.warning("User name already exists.");
-        	return "registration-form";
+			logger.warning("User name already exists.");			
+			return showMyLoginPage(theModel);
         }
         
-        
-        
-       //  create user account        						
+      
+        if(companyId == -1 && roleId == 2) {
+       	companyId = companyService.addNewCompany(companyName);
+        }
+        logger.info("companyID :" +companyId);
+  //      create user account        						
         userService.save(theCrmUser,roleId,companyId);
         
         logger.info("Successfully created user: " + userName);

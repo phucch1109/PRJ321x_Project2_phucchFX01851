@@ -118,6 +118,8 @@ VALUES
 (8,1),
 (9,1),
 (10,1);
+
+
 -- 1 user can have many version of CV
 CREATE TABLE cv_files (
 id int auto_increment primary key,
@@ -225,14 +227,23 @@ text nvarchar(255),
 CONSTRAINT applyUser_fk FOREIGN KEY (user_id) REFERENCES users(id),
 CONSTRAINT applyPost_fk FOREIGN KEY (post_id) REFERENCES posts(id),
 CONSTRAINT applyCvFile_fk FOREIGN KEY (cvFile_id) REFERENCES cv_files(id)
-)
+);
+
+INSERT INTO applyposts(id,dateCreated,post_id,user_id,cvFile_id,status,text) VALUES
+(1,curdate(),1,8,null,1,"somthing"),
+(2,curdate(),1,9,null,1,"somthing"),
+(3,curdate(),1,10,null,1,"somthing"),
+(4,curdate(),1,9,null,3,"somthing"),
+(5,curdate(),1,9,null,3,"somthing");
+
+-- SELECT c.name, count(p.company_id)  FROM companies c LEFT JOIN posts p ON c.id = p.company_id group by c.name order by count(p.company_id) desc;
+
 
 -- sum job offer by category
-SELECT COUNT(id) FROM Posts WHERE categoryId = 3 ;
-SELECT cat.name,COUNT(p.number_of_recruit) FROM categorys AS cat INNER JOIN Posts AS p ON cat.id = p.categoryId GROUP BY cat.id;
-
+-- SELECT COUNT(id) FROM Posts WHERE categoryId = 3 ;
+-- SELECT cat.name,COUNT(p.number_of_recruit) FROM categorys AS cat INNER JOIN Posts AS p ON cat.id = p.categoryId GROUP BY cat.id;
+select * from companies;
 
 -- temp for deleting user
-select * from users_roles;
-delete from users_roles where user_id = 12;
-delete from users where id = 12;
+-- delete from users_roles where user_id = 12;
+-- delete from users where id = 12;

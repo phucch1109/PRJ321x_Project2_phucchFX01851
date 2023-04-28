@@ -9,7 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.entity.Category;
 import com.entity.Company;
 import com.entity.Post;
 import com.entity.User;
@@ -54,7 +53,6 @@ public class HomeController {
 		String username = authentication.getName();
 		User user = userService.findByUserName(username);
 		model.addAttribute(user);
-		
 		return "profile";
 				
 	}

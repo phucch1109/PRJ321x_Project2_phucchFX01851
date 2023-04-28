@@ -15,9 +15,10 @@ public class CompanyDaoImpl implements CompanyDao {
 	@Autowired
 	SessionFactory sessionFactory;
 	
+	// get top 5 companies by number of post
 	public List<Company> top5Companies() {
 		Session currentSession = sessionFactory.getCurrentSession();
-		Query<Company> theQuery = currentSession.createQuery("from Company c ", Company.class);
+		Query<Company> theQuery = currentSession.createQuery("from Company c order by size(c.posts) desc", Company.class);
 		theQuery.setMaxResults(5);
 		List<Company> companiesList = null;
 		companiesList = theQuery.getResultList();
@@ -37,6 +38,14 @@ public class CompanyDaoImpl implements CompanyDao {
 		theQuery.setParameter("id", id);
 		Company company = theQuery.getSingleResult();
 		return company;
+	}
+	
+	public int addNewCompany(String name) {
+		Session currentSession = sessionFactory.getCurrentSession();
+		Company company = new Company();
+		company.setName(name);
+		System.out.println(company);
+		return (Integer) currentSession.save(company);
 	}
  	
 }

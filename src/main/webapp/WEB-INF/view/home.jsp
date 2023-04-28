@@ -110,13 +110,13 @@
 					<div class="col-6 login-btn">
 						<c:if test="${empty user}">
 							<form action="loginPage">
-								<button class="btn btn-outline-success my-2 my-sm-0" type=submit>Login</button>
+								<button class="btn btn-primary my-2 my-sm-0" type=submit>Login</button>
 							</form>
 						</c:if>
 						<c:if test="${not empty user}">
 							<form:form action="${pageContext.request.contextPath}/logout"
 								method="post">
-								<button class="btn btn-outline-success my-2 my-sm-0" type=submit
+								<button class="btn btn-primary my-2 my-sm-0" type=submit
 									value=logout>Logout</button>
 							</form:form>
 						</c:if>
