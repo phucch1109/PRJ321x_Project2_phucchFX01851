@@ -7,8 +7,12 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.dao.UserDao;
 import com.entity.Company;
 import com.entity.Post;
 import com.entity.User;
@@ -30,12 +34,15 @@ public class HomeController {
 	UserService userService;
 	
 	
+	//demo
 	@GetMapping("/")
 	public String showHome() {
 		
 		return "home1";
 	}
 	
+	
+	//homepage
 	@GetMapping("/homepage")
 	public String homePage(Model model) {
 		List<Company> companiesList = companyService.top5companies();
@@ -48,14 +55,39 @@ public class HomeController {
 	}
 	
 	
-	@PostMapping("/profile")
+	@RequestMapping("/profile")
 	public String showUserProfile(Authentication authentication,Model model) {
 		String username = authentication.getName();
 		User user = userService.findByUserName(username);
 		model.addAttribute(user);
+		Company company;
+		boolean hasRecruiterRole = authentication.getAuthorities().stream()
+		          .anyMatch(r -> r.getAuthority().equals("ROLE_RECRUITER"));
+		if(hasRecruiterRole) {
+			company = user.getCompany();
+			model.addAttribute(company);
+		}
 		return "profile";
 				
 	}
+	
+	
+	
+	
+	@PostMapping("/updateProfile")
+	public String updateProfile(Authentication authentication,Model model,
+			@ModelAttribute(value="user") User user) {
+		userService.update(user);
+		return showUserProfile(authentication, model);
+	}
+	
+	@PostMapping("/updateCompany")
+	public String updateCompany(Authentication authentication,Model model,
+			@ModelAttribute(value="company") Company company) {
+		companyService.update(company);
+		return showUserProfile(authentication, model);
+	}
+	
 	
 	// add request mapping for /leaders
 

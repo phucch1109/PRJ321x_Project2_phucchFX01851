@@ -242,7 +242,7 @@ INSERT INTO applyposts(id,dateCreated,post_id,user_id,cvFile_id,status,text) VAL
 -- sum job offer by category
 -- SELECT COUNT(id) FROM Posts WHERE categoryId = 3 ;
 -- SELECT cat.name,COUNT(p.number_of_recruit) FROM categorys AS cat INNER JOIN Posts AS p ON cat.id = p.categoryId GROUP BY cat.id;
-select * from companies;
+select * from users_roles;
 
 -- temp for deleting user
 -- delete from users_roles where user_id = 12;

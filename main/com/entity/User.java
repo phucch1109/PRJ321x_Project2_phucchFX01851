@@ -13,7 +13,7 @@ public class User {
 	@Column(name = "id")
 	private Long id;
 
-	@Column(name = "username")
+	@Column(name = "username",updatable = false)
 	private String userName;
 
 	@Column(name = "password")
@@ -34,7 +34,7 @@ public class User {
 	@Column(name = "description")
 	private String description;
 
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
 	@JoinTable(name = "users_roles", 
 	joinColumns = @JoinColumn(name = "user_id"), 
 	inverseJoinColumns = @JoinColumn(name = "role_id"))
@@ -45,7 +45,7 @@ public class User {
 	private List<Post> posts;
 	
 	@ManyToOne
-	@JoinColumn(name = "company_id")
+	@JoinColumn(name = "company_id",updatable = false)
 	private Company company;
 	
 	@OneToOne(mappedBy = "user")
@@ -60,11 +60,6 @@ public class User {
 	
 	public User() {
 	}
-
-	
-
-	
-
 
 
 	public Long getId() {

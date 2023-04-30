@@ -47,5 +47,10 @@ public class CompanyDaoImpl implements CompanyDao {
 		System.out.println(company);
 		return (Integer) currentSession.save(company);
 	}
+	
+	public void update(Company company) {
+		Session currentSession = sessionFactory.getCurrentSession();
+		currentSession.update(company);
+	}
  	
 }

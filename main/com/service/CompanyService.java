@@ -10,4 +10,6 @@ public interface CompanyService {
 	public List<Company> getCompanies();
 	
 	public int addNewCompany(String name);
+	
+	public void update(Company company);
 }

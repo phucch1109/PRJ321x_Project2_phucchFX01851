@@ -132,9 +132,15 @@ if(searchParams.has('alertMessage')) {
 		
 		/*all input ediable if click on edit button*/ 
 		$('#edit-input').click(function() {
-			$('.form-control').attr('disabled',false);
+			$('.profile-form').attr('disabled',false);
 			$(this).css('display', "none");
 			$('#confirm-btn').css('display', "inline-block");
+		});
+		
+		$('#edit-company-input').click(function() {
+			$('.company-form').attr('disabled',false);
+			$(this).css('display', "none");
+			$('#confirm-company-btn').css('display', "inline-block");
 		});
 		
 		

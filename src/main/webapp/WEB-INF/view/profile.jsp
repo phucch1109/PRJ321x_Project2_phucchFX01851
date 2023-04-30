@@ -79,7 +79,7 @@
 
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	
+
 
 <style>
 .error {
@@ -89,11 +89,12 @@
 </head>
 <body>
 	<h2>
-		Welcome User:
+		Xin chào người dùng:
 		<security:authentication property="principal.username" />
 	</h2>
-	<h3>Profile:</h3>
-	<div>
+	<a href="${pageContext.request.contextPath}/homepage">
+	<button class="btn btn-primary">trở lại homepage</button></a>
+	<div id="profileMain">
 
 		<div id="loginbox" style="margin-top: 50px;"
 			class="mainbox col-md-3 col-md-offset-2 col-sm-6 col-sm-offset-2">
@@ -101,7 +102,7 @@
 			<div class="panel panel-primary">
 
 				<div class="panel-heading">
-					<div class="panel-title">User's profile</div>
+					<div class="panel-title">Thông tin cá nhân</div>
 				</div>
 
 				<div style="padding-top: 30px" class="panel-body">
@@ -110,61 +111,59 @@
 					<form:form
 						action="${pageContext.request.contextPath}/updateProfile"
 						modelAttribute="user" class="form-horizontal">
-						
-
-						<!-- First name --><p>First name</p>
+						<form:hidden path="password"/>
+						<form:hidden path="id"/>
+						<form:hidden path="userName"/>
+						<form:hidden path="roles"/>
+						<!-- First name -->
+						<p>First name</p>
 						<div style="margin-bottom: 25px" class="input-group">
 							<span class="input-group-addon"><i
 								class="glyphicon glyphicon-user"></i></span>
 							<form:errors path="firstName" cssClass="error" />
 							<form:input path="firstName" placeholder="first name (*)"
-								class="form-control" disabled="true"/>
+								class="form-control profile-form" disabled="true" />
 						</div>
 
-						<!-- Last name --><p>Last name:</p>
+						<!-- Last name -->
+						<p>Last name:</p>
 						<div style="margin-bottom: 25px" class="input-group">
 							<span class="input-group-addon"><i
 								class="glyphicon glyphicon-user"></i></span>
 							<form:errors path="lastName" cssClass="error" />
 							<form:input path="lastName" placeholder="last name (*)"
-								class="form-control" disabled="true"/>
+								class="form-control profile-form" disabled="true" />
 						</div>
 
-						<!-- Email --><p>Email:</p>
+						<!-- Email -->
+						<p>Email:</p>
 						<div style="margin-bottom: 25px" class="input-group">
 							<span class="input-group-addon"><i
 								class="glyphicon glyphicon-user"></i></span>
 							<form:errors path="email" cssClass="error" />
 							<form:input path="email" placeholder="email (*)"
-								class="form-control" disabled="true"/>
+								class="form-control profile-form" disabled="true" />
 						</div>
 
-						<!-- Phone number --><p>Phone number:</p>
+						<!-- Phone number -->
+						<p>Phone number:</p>
 						<div style="margin-bottom: 25px" class="input-group">
 							<span class="input-group-addon"><i
 								class="glyphicon glyphicon-user"></i></span>
 							<form:errors path="phoneNumber" cssClass="error" />
 							<form:input path="phoneNumber" placeholder="phone number (*)"
-								class="form-control" disabled="true"/>
+								class="form-control profile-form" disabled="true" />
 						</div>
-						
-						<!-- Description --><p>Description:</p>
+
+						<!-- Description -->
+						<p>Description:</p>
 						<div style="margin-bottom: 25px" class="input-group">
 							<span class="input-group-addon"><i
 								class="glyphicon glyphicon-user"></i></span>
 							<form:errors path="description" cssClass="error" />
 							<form:textarea path="description" placeholder="description"
-								class="form-control" disabled="true"/>
+								class="form-control profile-form" disabled="true" />
 						</div>
-						
-						<!-- Company --><p>Company:</p>
-						<div style="margin-bottom: 25px" class="input-group">
-							<span class="input-group-addon"><i
-								class="glyphicon glyphicon-user"></i></span>
-							
-							<form:input path="company" disabled="true"/>
-						</div>
-	
 
 						<!-- Edit Button -->
 						<div style="margin-top: 10px" class="form-group">
@@ -175,7 +174,8 @@
 						<!-- Confirm Button -->
 						<div style="margin-top: 10px" class="form-group">
 							<div class="col-sm-6 controls">
-								<button type="submit" class="btn btn-primary" id="confirm-btn" style="display:none">Confirm</button>
+								<button type="submit" class="btn btn-primary" id="confirm-btn"
+									style="display: none">Confirm</button>
 							</div>
 						</div>
 
@@ -186,6 +186,87 @@
 
 			</div>
 		</div>
+	</div>
+	<div id="companyMain">
+	 <c:if test="${not empty user.company}">
+		<div id="loginbox" style="margin-top: 50px;"
+			class="mainbox col-md-3 col-md-offset-2 col-sm-6 col-sm-offset-2">
+
+			<div class="panel panel-primary">
+
+				<div class="panel-heading">
+					<div class="panel-title">Thông tin công ty</div>
+				</div>
+
+				<div style="padding-top: 30px" class="panel-body">
+
+					<!-- Registration Form -->
+					<form:form
+						action="${pageContext.request.contextPath}/updateCompany"
+						modelAttribute="company" class="form-horizontal">
+						<form:hidden path="id"/>
+
+						<!-- First name -->
+						<p>Name:</p>
+						<div style="margin-bottom: 25px" class="input-group">
+							<span class="input-group-addon"><i
+								class="glyphicon glyphicon-user"></i></span>
+							<form:errors path="name" cssClass="error" />
+							<form:input path="name" placeholder="Name (*)"
+								class="form-control company-form" disabled="true" />
+						</div>
+
+						<!-- Last name -->
+						<p>Address:</p>
+						<div style="margin-bottom: 25px" class="input-group">
+							<span class="input-group-addon"><i
+								class="glyphicon glyphicon-user"></i></span>
+							<form:errors path="address" cssClass="error" />
+							<form:input path="address" placeholder="address"
+								class="form-control company-form" disabled="true" />
+						</div>
+						<!-- Phone number -->
+						<p>Phone number:</p>
+						<div style="margin-bottom: 25px" class="input-group">
+							<span class="input-group-addon"><i
+								class="glyphicon glyphicon-user"></i></span>
+							<form:errors path="phoneNumber" cssClass="error" />
+							<form:input path="phoneNumber" placeholder="phone number (*)"
+								class="form-control company-form" disabled="true" />
+						</div>
+
+						<!-- Description -->
+						<p>Description:</p>
+						<div style="margin-bottom: 25px" class="input-group">
+							<span class="input-group-addon"><i
+								class="glyphicon glyphicon-user"></i></span>
+							<form:errors path="description" cssClass="error" />
+							<form:textarea path="description" placeholder="description"
+								class="form-control company-form" disabled="true" />
+						</div>
+
+						<!-- Edit Button -->
+						<div style="margin-top: 10px" class="form-group">
+							<div class="col-sm-6 controls">
+								<button class="btn btn-primary" id="edit-company-input" type="button">Edit</button>
+							</div>
+						</div>
+						<!-- Confirm Button -->
+						<div style="margin-top: 10px" class="form-group">
+							<div class="col-sm-6 controls">
+								<button type="submit" class="btn btn-primary" id="confirm-company-btn"
+									style="display: none">Confirm</button>
+							</div>
+						</div>
+
+
+					</form:form>
+
+				</div>
+
+			</div>
+		</div>
+	</c:if>
 	</div>
 	<script
 		src="${pageContext.request.contextPath}/assets/user/assets/js/JQuery3.3.1.js"></script>

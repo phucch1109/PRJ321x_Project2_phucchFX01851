@@ -9,8 +9,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 public interface UserService extends UserDetailsService {
 
     public User findByUserName(String userName);
-
-   
-    
+    public void update(User user) ;
     public void save(CrmUser crmUser,int roleId, int companyId);
 }

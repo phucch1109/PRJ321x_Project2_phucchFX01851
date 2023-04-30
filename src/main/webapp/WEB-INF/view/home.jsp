@@ -13,7 +13,7 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
-<title>Trang quyên góp</title>
+<title>Trang tìm việc</title>
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -142,10 +142,11 @@
 								Role(s):
 								<security:authentication property="principal.authorities" />
 							</h2>
-							<form:form action="${pageContext.request.contextPath}/profile"
-								method="post">
-								<button class="btn btn-primary py-2" type=submit>Profile</button>
-							</form:form>
+							<a href="${pageContext.request.contextPath}/profile">							
+								<button class="btn btn-primary py-2" type=submit>Hồ sơ</button>
+							</a>
+							<a href="${pageContext.request.contextPath}/postList">
+							<button class="btn btn-primary py-2" type=submit>Danh sách bài đăng</button></a>
 						</c:if>
 					</div>
 				</div>

@@ -12,4 +12,6 @@ public interface CompanyDao {
 	public Company getCompanyById(int id);
 	
 	public int addNewCompany(String name);
+	
+	public void update(Company company);
 }
