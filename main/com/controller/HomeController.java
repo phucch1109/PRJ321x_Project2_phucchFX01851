@@ -54,7 +54,7 @@ public class HomeController {
 		return "home";
 	}
 	
-	
+	//showing user's profile and company 
 	@RequestMapping("/profile")
 	public String showUserProfile(Authentication authentication,Model model) {
 		String username = authentication.getName();
@@ -71,22 +71,23 @@ public class HomeController {
 				
 	}
 	
-	
-	
-	
+	//handle  edit button on profile form
 	@PostMapping("/updateProfile")
 	public String updateProfile(Authentication authentication,Model model,
 			@ModelAttribute(value="user") User user) {
 		userService.update(user);
 		return showUserProfile(authentication, model);
 	}
-	
+
+	//handle  edit button on company form
 	@PostMapping("/updateCompany")
 	public String updateCompany(Authentication authentication,Model model,
 			@ModelAttribute(value="company") Company company) {
 		companyService.update(company);
 		return showUserProfile(authentication, model);
 	}
+	
+	
 	
 	
 	// add request mapping for /leaders

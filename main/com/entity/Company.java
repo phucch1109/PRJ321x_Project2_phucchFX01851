@@ -23,6 +23,8 @@ public class Company {
 	private String address;
 	@Column(name = "phoneNumber")
 	private String phoneNumber;
+	@Column(name = "email")
+	private String email;
 	@Column(name = "description")
 	private String description;
 	@OneToMany(mappedBy = "company")
@@ -33,17 +35,19 @@ public class Company {
 	public Company() {
 		super();
 	}
-
-	public Company(int id, String name, String address, String phoneNumber, String description, List<User> users) {
+	
+	public Company(int id, String name, String address, String phoneNumber, String email, String description,
+			List<User> users, List<Post> posts) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.address = address;
 		this.phoneNumber = phoneNumber;
+		this.email = email;
 		this.description = description;
 		this.users = users;
+		this.posts = posts;
 	}
-	
 	
 	public Company(int id, String name, String address) {
 		super();
@@ -87,6 +91,22 @@ public class Company {
 	}
 	public void setUsers(List<User> users) {
 		this.users = users;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public List<Post> getPosts() {
+		return posts;
+	}
+
+	public void setPosts(List<Post> posts) {
+		this.posts = posts;
 	}
 
 	@Override

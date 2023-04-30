@@ -11,16 +11,17 @@ id int auto_increment primary key,
 name nvarchar(255),
 address nvarchar(255),
 phoneNumber varchar(255),
-description nvarchar(255)
+description nvarchar(255),
+email varchar(50)
 );
-INSERT INTO companies (id,name,address,phoneNumber,description)
-VALUES (1,"FPT software","Hoa Lac","0999239402389","VERY BIG COPR with alot of seeder"),
-(2,"NFT company","Hanoi","2983485212","Greedy company"),
-(3,"Scarlet Union","Onshore","12300402389","Implemented with anti air cut in"),
-(4,"Abydos","Desert","402389000","Empty company with big snake hid in beneath"),
-(5,"Gehenna ","Teyvat","1230211402389","Mostly handy man and some outlaw"),
-(6,"Millennium Science","Space station","12300402389","Using cutting edge tech, but easily go bankrupt"),
-(7,"Trinity","Church","1230040222389","Finding way to make human closer to god")
+INSERT INTO companies (id,name,address,phoneNumber,description,email)
+VALUES (1,"FPT software","Hoa Lac","0999239402389","VERY BIG COPR with alot of seeder","fpt@gmail.com"),
+(2,"NFT company","Hanoi","2983485212","Greedy company","NFTcorp@gmail.com"),
+(3,"Scarlet Union","Onshore","12300402389","Implemented with anti air cut in","ScarletUnion@yahoo.com"),
+(4,"Abydos","Desert","402389000","Empty company with big snake hid in beneath","BluluAr@gmail.com"),
+(5,"Gehenna ","Teyvat","1230211402389","Mostly handy man and some outlaw","OneDayOneBadDeed@gmail.com"),
+(6,"Millennium Science","Space station","12300402389","Using cutting edge tech, but easily go bankrupt","FutureIsKey@yahoo.com"),
+(7,"Trinity","Church","1230040222389","Finding way to make human closer to god","MayPeace4All@yahoo.com")
 ;
 
 
@@ -213,7 +214,14 @@ VALUES
 (4,"Tuyển nhân viên .NET 2","không cần kinh nghiệm",5,"Thỏa thuận",3,curdate(),5,2,curdate(),1),
 (5,"Tuyển nhân viên PHP nhanh","không cần kinh nghiệm",5,"Thỏa thuận",8,curdate(),5,2,curdate(),3),
 (6,"Tuyển nhân viên java","3 năm kinh nghiệm",5,"Thỏa thuận",2,curdate(),5,2,curdate(),3),
-(7,"Tuyển nhân viên .NET 3","không cần kinh nghiệm",5,"Thỏa thuận",3,curdate(),6,3,curdate(),1);
+(7,"Tuyển nhân viên .NET 3","không cần kinh nghiệm",5,"Thỏa thuận",3,curdate(),6,3,curdate(),1),
+(8,"Tuyển nhân viên C# gấp1","không cần kinh nghiệm",5,"Thỏa thuận",4,curdate(),4,1,curdate(),2),
+(9,"Tuyển nhân viên C# gấp2","không cần kinh nghiệm",5,"Thỏa thuận",4,curdate(),4,1,curdate(),2),
+(10,"Tuyển nhân viên C# gấp3","không cần kinh nghiệm",5,"Thỏa thuận",4,curdate(),4,1,curdate(),2),
+(11,"Tuyển nhân viên C# gấp4","không cần kinh nghiệm",5,"Thỏa thuận",4,curdate(),4,1,curdate(),2),
+(12,"Tuyển nhân viên C# gấp5","không cần kinh nghiệm",5,"Thỏa thuận",4,curdate(),4,1,curdate(),2),
+(13,"Tuyển nhân viên C# gấp6","không cần kinh nghiệm",5,"Thỏa thuận",4,curdate(),4,1,curdate(),2),
+(14,"Tuyển nhân viên C# gấp7","không cần kinh nghiệm",5,"Thỏa thuận",4,curdate(),4,1,curdate(),2);
 
 
 CREATE TABLE applyposts (
@@ -242,8 +250,7 @@ INSERT INTO applyposts(id,dateCreated,post_id,user_id,cvFile_id,status,text) VAL
 -- sum job offer by category
 -- SELECT COUNT(id) FROM Posts WHERE categoryId = 3 ;
 -- SELECT cat.name,COUNT(p.number_of_recruit) FROM categorys AS cat INNER JOIN Posts AS p ON cat.id = p.categoryId GROUP BY cat.id;
-select * from users_roles;
-
+select * from users;
 -- temp for deleting user
 -- delete from users_roles where user_id = 12;
 -- delete from users where id = 12;

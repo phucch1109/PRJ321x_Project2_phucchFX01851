@@ -1678,3 +1678,12 @@ h1, h2, h3, h4 {
  .error {
 	color: red
 }
+
+.item-border {
+	border: 1px solid #b8b8ff;
+}
+
+a.disabled { /*disable a tag*/
+  pointer-events: none;
+  cursor: default;
+}

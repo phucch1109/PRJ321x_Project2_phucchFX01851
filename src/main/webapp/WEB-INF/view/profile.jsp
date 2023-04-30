@@ -18,9 +18,6 @@
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-
-
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/assets/user/assets/css/custom-bs.css">
 <link rel="stylesheet"
@@ -234,7 +231,16 @@
 							<form:input path="phoneNumber" placeholder="phone number (*)"
 								class="form-control company-form" disabled="true" />
 						</div>
-
+						
+						<!-- Email -->
+						<p>Email:</p>
+						<div style="margin-bottom: 25px" class="input-group">
+							<span class="input-group-addon"><i
+								class="glyphicon glyphicon-user"></i></span>
+							<form:errors path="email" cssClass="error" />
+							<form:input path="email" placeholder="email (*)"
+								class="form-control company-form" disabled="true" />
+						</div>
 						<!-- Description -->
 						<p>Description:</p>
 						<div style="margin-bottom: 25px" class="input-group">

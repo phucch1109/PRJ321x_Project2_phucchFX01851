@@ -121,8 +121,6 @@
 							</form:form>
 						</c:if>
 					</div>
-
-
 				</div>
 			</div>
 		</header>

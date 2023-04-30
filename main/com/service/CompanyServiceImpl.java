@@ -39,4 +39,6 @@ public class CompanyServiceImpl implements CompanyService{
 	public void update(Company company) {
 		companyDao.update(company);
 	}
+	
+	
 }
