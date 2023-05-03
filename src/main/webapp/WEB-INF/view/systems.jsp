@@ -18,8 +18,8 @@
 
 <hr>
 
-<a href="${pageContext.request.contextPath}/">Back to Home Page</a>
-
+<a href="${pageContext.request.contextPath}/homepage">Back to Home Page</a>
+<p>name:${post.title} description: ${post.jobTypeId} exprience: ${post.experience} date: ${post.expireDate}</p>
 </body>
 
 </html>

@@ -99,7 +99,7 @@ CREATE TABLE users_roles (
   REFERENCES roles (id) 
 ) ;
 
-SET FOREIGN_KEY_CHECKS = 1;
+
 
 --
 -- Dumping data for table `users_roles`
@@ -190,10 +190,11 @@ VALUES
 
 CREATE TABLE posts (
 id int auto_increment primary key,
-title nvarchar(255),
-experience nvarchar(255),
+title nvarchar(100),
+experience nvarchar(100),
+description nvarchar(255),
 number_of_recruit int,
-salary nvarchar(255),
+salary nvarchar(100),
 categoryId int,
 expireDate date,
 user_id int NOT NULL,
@@ -206,22 +207,22 @@ CONSTRAINT jobTypePost_fk FOREIGN KEY (job_typeId) REFERENCES job_types (id),
 CONSTRAINT companyPost_fk FOREIGN KEY (company_id) REFERENCES companies(id)
 );
 
-INSERT INTO posts (id,title,experience,number_of_recruit,salary,categoryId,expireDate,user_id,company_id,dateCreated,job_typeId) 
+INSERT INTO posts (id,title,experience,description,number_of_recruit,salary,categoryId,expireDate,user_id,company_id,dateCreated,job_typeId) 
 VALUES 
-(1,"Tuyển nhân viên .NET 1","không cần kinh nghiệm",5,"Thỏa thuận",3,curdate(),4,1,curdate(),1),
-(2,"Tuyển nhân viên .NET pro","1 năm kinh nghiệm",10,"Thỏa thuận",3,curdate(),4,1,curdate(),1),
-(3,"Tuyển nhân viên C# gấp","không cần kinh nghiệm",5,"Thỏa thuận",4,curdate(),4,1,curdate(),2),
-(4,"Tuyển nhân viên .NET 2","không cần kinh nghiệm",5,"Thỏa thuận",3,curdate(),5,2,curdate(),1),
-(5,"Tuyển nhân viên PHP nhanh","không cần kinh nghiệm",5,"Thỏa thuận",8,curdate(),5,2,curdate(),3),
-(6,"Tuyển nhân viên java","3 năm kinh nghiệm",5,"Thỏa thuận",2,curdate(),5,2,curdate(),3),
-(7,"Tuyển nhân viên .NET 3","không cần kinh nghiệm",5,"Thỏa thuận",3,curdate(),6,3,curdate(),1),
-(8,"Tuyển nhân viên C# gấp1","không cần kinh nghiệm",5,"Thỏa thuận",4,curdate(),4,1,curdate(),2),
-(9,"Tuyển nhân viên C# gấp2","không cần kinh nghiệm",5,"Thỏa thuận",4,curdate(),4,1,curdate(),2),
-(10,"Tuyển nhân viên C# gấp3","không cần kinh nghiệm",5,"Thỏa thuận",4,curdate(),4,1,curdate(),2),
-(11,"Tuyển nhân viên C# gấp4","không cần kinh nghiệm",5,"Thỏa thuận",4,curdate(),4,1,curdate(),2),
-(12,"Tuyển nhân viên C# gấp5","không cần kinh nghiệm",5,"Thỏa thuận",4,curdate(),4,1,curdate(),2),
-(13,"Tuyển nhân viên C# gấp6","không cần kinh nghiệm",5,"Thỏa thuận",4,curdate(),4,1,curdate(),2),
-(14,"Tuyển nhân viên C# gấp7","không cần kinh nghiệm",5,"Thỏa thuận",4,curdate(),4,1,curdate(),2);
+(1,"Tuyển nhân viên .NET 1","không cần kinh nghiệm","mô tả",5,"Thỏa thuận",3,curdate(),4,1,curdate(),1),
+(2,"Tuyển nhân viên .NET pro","1 năm kinh nghiệm","mô tả",10,"Thỏa thuận",3,curdate(),4,1,curdate(),1),
+(3,"Tuyển nhân viên C# gấp","không cần kinh nghiệm","mô tả",5,"Thỏa thuận",4,curdate(),4,1,curdate(),2),
+(4,"Tuyển nhân viên .NET 2","không cần kinh nghiệm","mô tả",5,"Thỏa thuận",3,curdate(),5,2,curdate(),1),
+(5,"Tuyển nhân viên PHP nhanh","không cần kinh nghiệm","mô tả",5,"Thỏa thuận",8,curdate(),5,2,curdate(),3),
+(6,"Tuyển nhân viên java","3 năm kinh nghiệm","mô tả",5,"Thỏa thuận",2,curdate(),5,2,curdate(),3),
+(7,"Tuyển nhân viên .NET 3","không cần kinh nghiệm","mô tả",5,"Thỏa thuận",3,curdate(),6,3,curdate(),1),
+(8,"Tuyển nhân viên C# gấp1","không cần kinh nghiệm","mô tả",5,"Thỏa thuận",4,curdate(),4,1,curdate(),2),
+(9,"Tuyển nhân viên C# gấp2","không cần kinh nghiệm","mô tả",5,"Thỏa thuận",4,curdate(),4,1,curdate(),2),
+(10,"Tuyển nhân viên C# gấp3","không cần kinh nghiệm","mô tả",5,"Thỏa thuận",4,curdate(),4,1,curdate(),2),
+(11,"Tuyển nhân viên C# gấp4","không cần kinh nghiệm","mô tả",5,"Thỏa thuận",4,curdate(),4,1,curdate(),2),
+(12,"Tuyển nhân viên C# gấp5","không cần kinh nghiệm","mô tả",5,"Thỏa thuận",4,curdate(),4,1,curdate(),2),
+(13,"Tuyển nhân viên C# gấp6","không cần kinh nghiệm","mô tả",5,"Thỏa thuận",4,curdate(),4,1,curdate(),2),
+(14,"Tuyển nhân viên C# gấp7","không cần kinh nghiệm","mô tả",5,"Thỏa thuận",4,curdate(),4,1,curdate(),2);
 
 
 CREATE TABLE applyposts (
@@ -238,19 +239,19 @@ CONSTRAINT applyCvFile_fk FOREIGN KEY (cvFile_id) REFERENCES cv_files(id)
 );
 
 INSERT INTO applyposts(id,dateCreated,post_id,user_id,cvFile_id,status,text) VALUES
-(1,curdate(),1,8,null,1,"somthing"),
-(2,curdate(),1,9,null,1,"somthing"),
-(3,curdate(),1,10,null,1,"somthing"),
-(4,curdate(),1,9,null,3,"somthing"),
-(5,curdate(),1,9,null,3,"somthing");
+(1,curdate(),14,8,null,0,"somthing"),
+(2,curdate(),14,9,null,0,"somthing"),
+(3,curdate(),14,10,null,0,"somthing"),
+(4,curdate(),14,9,null,0,"somthing"),
+(5,curdate(),14,9,null,0,"somthing");
 
 -- SELECT c.name, count(p.company_id)  FROM companies c LEFT JOIN posts p ON c.id = p.company_id group by c.name order by count(p.company_id) desc;
 
-
+SET FOREIGN_KEY_CHECKS = 1;
 -- sum job offer by category
 -- SELECT COUNT(id) FROM Posts WHERE categoryId = 3 ;
 -- SELECT cat.name,COUNT(p.number_of_recruit) FROM categorys AS cat INNER JOIN Posts AS p ON cat.id = p.categoryId GROUP BY cat.id;
-select * from users;
+select * from applyposts;
 -- temp for deleting user
 -- delete from users_roles where user_id = 12;
 -- delete from users where id = 12;

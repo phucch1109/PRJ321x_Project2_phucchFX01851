@@ -22,6 +22,7 @@ public class CategoryServiceImpl implements CategoryService{
 	@Autowired
 	CategoryDao categoryDao;
 	
+	@Override
 	@Transactional
 	public List<TopCategoryResult> getTop4Categories() {
 		//using catogary list as temp output, use "Id" field as total posts value
@@ -29,6 +30,10 @@ public class CategoryServiceImpl implements CategoryService{
 		return tempHash;
 	}
 	
-	
+	@Override
+	@Transactional
+	public List<Category> getCategories() {
+		return categoryDao.getCategories();
+	}
 	
  }

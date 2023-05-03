@@ -1,19 +1,25 @@
 package com.entity;
 
 import java.sql.Date;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
 
 @Entity
 @Table(name="posts")
 public class Post {
 @Id
+@GeneratedValue(strategy = GenerationType.IDENTITY)
 @Column(name="id")
 private int id;
 @Column(name="title")
@@ -28,6 +34,8 @@ private String salary;
 private Date expireDate;
 @Column(name= "dateCreated")
 private Date dateCreated;
+@Column(name="description")
+private String description;
 
 @ManyToOne(cascade= {CascadeType.PERSIST, CascadeType.MERGE,
 		 CascadeType.DETACH, CascadeType.REFRESH})
@@ -45,6 +53,9 @@ private JobType jobType;
 @JoinColumn(name="company_id")
 private Company company;
 
+@OneToMany(mappedBy = "post" ,cascade= CascadeType.ALL)
+private List<ApplyPost> applyPosts;
+
 public Post() {
 	super();
 }
@@ -52,8 +63,10 @@ public Post() {
 
 
 
+
 public Post(int id, String title, String experience, int numberOfRecruit, String salary, Date expireDate,
-		Date dateCreated, User user, Category category, JobType jobType, Company company) {
+		Date dateCreated, String description, User user, Category category, JobType jobType, Company company,
+		List<ApplyPost> applyPosts) {
 	super();
 	this.id = id;
 	this.title = title;
@@ -62,14 +75,21 @@ public Post(int id, String title, String experience, int numberOfRecruit, String
 	this.salary = salary;
 	this.expireDate = expireDate;
 	this.dateCreated = dateCreated;
+	this.description = description;
 	this.user = user;
 	this.category = category;
 	this.jobType = jobType;
 	this.company = company;
+	this.applyPosts = applyPosts;
 }
 
+public String getDescription() {
+	return description;
+}
 
-
+public void setDescription(String description) {
+	this.description = description;
+}
 
 public int getId() {
 	return id;
@@ -139,5 +159,26 @@ public Company getCompany() {
 public void setCompany(Company company) {
 	this.company = company;
 }
+
+public List<ApplyPost> getApplyPosts() {
+	return applyPosts;
+}
+
+public void setApplyPosts(List<ApplyPost> applyPosts) {
+	this.applyPosts = applyPosts;
+}
+
+
+
+
+
+@Override
+public String toString() {
+	return "Post [id=" + id + ", title=" + title + ", experience=" + experience + ", numberOfRecruit=" + numberOfRecruit
+			+ ", salary=" + salary + ", expireDate=" + expireDate + ", dateCreated=" + dateCreated + ", description="
+			+ description + ", user=" + user + ", category=" + category + ", jobType=" + jobType + ", company="
+			+ company + ", applyPosts=" + applyPosts + "]";
+}
+
 
 }

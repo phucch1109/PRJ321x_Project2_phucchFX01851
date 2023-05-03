@@ -11,7 +11,7 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
-<title>Quản trị</title>
+<title>Danh sách bài viết</title>
 
 <meta charset="utf-8">
 <meta name="viewport"
@@ -79,9 +79,10 @@
 <body>
 	<nav class="bg-light p-2">
 		<a href="${pageContext.request.contextPath}/homepage" role="button" class="btn btn-primary">Về trang chủ</a>		
-		<a href="${pageContext.request.contextPath}/newPost" role="button" class="btn btn-primary">Tạo bài đăng</a>
+		<a href="${pageContext.request.contextPath}/newPostForm" role="button" class="btn btn-primary">Tạo bài đăng</a>
 		<h3 class="text-center">Danh sách bài đăng</h3>
 	</nav>
+	<c:if test="${not empty message}"><div class="alert alert-primary" role="alert">${message}</div></c:if>
 	<main>
 		<div
 			class="container d-flex align-items-center justify-content-center flex-column">

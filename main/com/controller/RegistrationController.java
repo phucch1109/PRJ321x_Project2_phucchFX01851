@@ -50,7 +50,6 @@ public class RegistrationController {
 	@GetMapping("/showRegistrationForm")
 	public String showMyLoginPage(Model theModel) {		
 		theModel.addAttribute("crmUser", new CrmUser());
-		theModel.addAttribute("roles", roleService.getRoles());
 		theModel.addAttribute("companies", companyService.getCompanies());
 		return "registration-form";
 	}
@@ -70,8 +69,10 @@ public class RegistrationController {
 		logger.info(theCrmUser.getEmail() +" " + theCrmUser.getPassword());
 		// form validation
 		 if (theBindingResult.hasErrors()){
-			 theModel.addAttribute("registrationError", "something went wrong");
-				return showMyLoginPage(theModel);
+			 theModel.addAttribute("registrationError", "Error, ");
+			 //theModel.addAttribute("crmUser", new CrmUser());
+			theModel.addAttribute("companies", companyService.getCompanies());
+			return "registration-form";		
 	        }
 
 		// check the database if user already exists

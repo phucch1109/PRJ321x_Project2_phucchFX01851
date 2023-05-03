@@ -18,6 +18,7 @@ public class CategoryDaoImpl implements CategoryDao{
 	@Autowired
 	SessionFactory sessionFactory;
 	
+	//get all categories
 	public List<Category> getCategories() {
 		Session currentSession = sessionFactory.getCurrentSession();
 		Query<Category> query = currentSession.createQuery("FROM Category",Category.class);
@@ -34,5 +35,11 @@ public class CategoryDaoImpl implements CategoryDao{
 		return temp;
 	}
 	
-	
+	public Category getCategoryById(int id) {
+		Session currentSession = sessionFactory.getCurrentSession();
+		Query<Category> query = currentSession.createQuery("FROM Category where id =: id",Category.class);
+		query.setParameter("id", id);
+		Category category = query.getSingleResult();
+		return category;
+	}
 }

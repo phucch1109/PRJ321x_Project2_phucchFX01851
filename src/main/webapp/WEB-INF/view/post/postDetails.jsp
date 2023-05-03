@@ -11,7 +11,7 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
-<title>Quản trị</title>
+<title>Bài viết</title>
 
 <meta charset="utf-8">
 <meta name="viewport"
@@ -77,6 +77,65 @@
 
 </head>
 <body>
-
+<nav class="bg-light p-2">
+		<a href="${pageContext.request.contextPath}/homepage">Về trang chủ</a>		
+		
+		<h3 class="text-center">Đăng bài</h3>
+</nav>
+<c:if test="${not empty errorMessage}">
+<div class="alert alert-danger">${errorMessage}</div>
+</c:if>
+<c:if test="${not empty message}">
+<div class="alert alert-success">${message}</div>
+</c:if>
+<main class="container item-border">
+			<form:form modelAttribute="postForm" action="${pageContext.request.contextPath}/newPost">
+			<h3 style="width:300px;display:inline-block">Chi tiết bài tuyển dụng</h3>
+			<button type="submit" class="float-right btn btn-primary mt-5">Tạo bài đăng</button>
+			
+			<p style="margin:10px 0px 0px 0px">Tiêu đề</p>
+			<form:input path="title" cssClass="form-control"/>
+			 <form:errors path="title" cssClass="error" />
+			 			
+			<p style="margin:10px 0px 0px 0px">Mô tả công việc</p>
+			<form:textarea path="description" cssClass="form-control"/>
+			<form:errors path="description" cssClass="error" />
+						
+			<p style="margin:10px 0px 0px 0px">Kinh nghiệm</p>
+			<form:input path="experience" cssClass="form-control"/>
+			<form:errors path="experience" cssClass="error" />
+						
+			<p style="margin:10px 0px 0px 0px">Số người cần tuyển</p>
+			<input name="numberOfRecruit" class="form-control"/>
+			<form:errors path="numberOfRecruit" cssClass="error" />
+			
+			<p style="margin:10px 0px 0px 0px">Địa chỉ công ty</p>
+			<input type="text" class="form-control" name="address" value="${companyAddress}" readonly>
+					
+			<p style="margin:10px 0px 0px 0px">Hạn ứng tuyển</p>
+			<form:input type="date" class="form-control" path="expireDate"/> 
+			<form:errors path="expireDate" cssClass="error" />			
+			
+			<p style="margin:10px 0px 0px 0px">Lương</p>
+			<form:input path="salary" cssClass="form-control"/>
+			<form:errors path="salary" cssClass="error" />
+						
+			<p style="margin:10px 0px 0px 0px">Loại công việc</p>
+			<form:select path="jobTypeId" cssClass="form-control">
+			<c:forEach items="${jobTypes}" var="jobType">
+			<option value="${jobType.id}" label="${jobType.name}"/>
+			</c:forEach>
+			</form:select>
+			<form:errors path="jobTypeId" cssClass="error" />
+						
+			<p style="margin:10px 0px 0px 0px">Danh mục công việc</p>
+			<form:select path="categoryId" cssClass="form-control">
+			<c:forEach items="${categories}" var="category">
+			<option value="${category.id}" label="${category.name}"/>
+			</c:forEach>
+			</form:select>
+			<form:errors path="categoryId" cssClass="error" />
+			</form:form>
+</main>
 </body>
 </html>

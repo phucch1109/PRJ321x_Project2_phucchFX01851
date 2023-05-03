@@ -54,9 +54,11 @@ public class User {
 	@OneToMany(mappedBy = "user")
 	private List<AvatarFile> avatarFiles;
 	
-	@OneToMany(mappedBy = "user")
+	@OneToMany(mappedBy = "user", cascade= CascadeType.ALL)
 	private List<CvFile> cvFiles;
 	
+	@OneToMany(mappedBy = "user")
+	private List<ApplyPost> applyposts;
 	
 	public User() {
 	}
@@ -204,6 +206,16 @@ public class User {
 
 	public void setCvFiles(List<CvFile> cvFiles) {
 		this.cvFiles = cvFiles;
+	}
+
+
+	public List<ApplyPost> getApplyposts() {
+		return applyposts;
+	}
+
+
+	public void setApplyposts(List<ApplyPost> applyposts) {
+		this.applyposts = applyposts;
 	}
 	
 

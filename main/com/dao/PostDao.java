@@ -11,4 +11,6 @@ public interface PostDao {
 	public List<Post> getPostByUserId(int userId);
 	public int getCountByUserId(int userId);
 	public List<Post> getPostByUserId(int userId,int index);
+	public int deletePost(int postId);
+	public int savePost(Post post);
 }

@@ -10,6 +10,7 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.entity.Company;
 import com.entity.Post;
 
 @Repository
@@ -47,6 +48,8 @@ public class PostDaoImpl implements PostDao{
 		return (int)output;
 	}
 	
+	
+	//get user's post (without pagination)
 	@Override
 	public List<Post> getPostByUserId(int userId) {
 		Session currentSession = sessionFactory.getCurrentSession();
@@ -56,6 +59,8 @@ public class PostDaoImpl implements PostDao{
 		return posts;
 	}
 	
+	
+	//get user's post with pagination (max result = 5)
 	@Override
 	public List<Post> getPostByUserId(int userId,int index) {
 		int maxResult = 5;
@@ -78,4 +83,19 @@ public class PostDaoImpl implements PostDao{
 		return (int)output;
 	}
 	
+	
+	@Override
+	public int deletePost(int postId) {
+		Session currentSession = sessionFactory.getCurrentSession();
+		Query query = currentSession.createQuery("delete FROM Post where id =: postId");
+		query.setParameter("postId", postId);
+		int output = query.executeUpdate();
+		return output;
+	}
+	
+	@Override
+	public int savePost(Post post) {
+		Session currentSession = sessionFactory.getCurrentSession();		
+		return (Integer) currentSession.save(post);
+	}
 }
