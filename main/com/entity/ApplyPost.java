@@ -20,8 +20,8 @@ public class ApplyPost {
 	@Column(name = "id")
 	private int id;
 	
-	@Column(name="dateCreate")
-	private Date dateCreate;
+	@Column(name="dateCreated")
+	private Date dateCreated;
 	
 	@ManyToOne
 	@JoinColumn(name= "user_id")
@@ -44,7 +44,7 @@ public class ApplyPost {
 	public ApplyPost(int id, Date dateCreate, User user, int status, String text, Post post) {
 		super();
 		this.id = id;
-		this.dateCreate = dateCreate;
+		this.dateCreated = dateCreate;
 		this.user = user;
 		this.status = status;
 		this.text = text;
@@ -59,12 +59,12 @@ public class ApplyPost {
 		this.id = id;
 	}
 
-	public Date getDateCreate() {
-		return dateCreate;
+	public Date getDateCreated() {
+		return dateCreated;
 	}
 
 	public void setDateCreate(Date dateCreate) {
-		this.dateCreate = dateCreate;
+		this.dateCreated = dateCreate;
 	}
 
 	public User getUser() {

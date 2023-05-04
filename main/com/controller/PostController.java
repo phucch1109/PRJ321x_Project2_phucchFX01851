@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.logging.Logger;
 
 import javax.validation.Valid;
 
@@ -18,11 +19,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.entity.ApplyPost;
 import com.entity.Category;
 import com.entity.Company;
 import com.entity.JobType;
 import com.entity.Post;
 import com.entity.User;
+import com.service.ApplyPostService;
 import com.service.CategoryService;
 import com.service.CompanyService;
 import com.service.JobTypeService;
@@ -42,7 +45,9 @@ CategoryService categoryService;
 UserService userService;
 @Autowired
 JobTypeService jobTypeService;
-
+@Autowired
+ApplyPostService applyPostService;
+private Logger logger = Logger.getLogger(getClass().getName());
 
     //showing user's posts
 	@RequestMapping("/postList")
@@ -79,8 +84,9 @@ JobTypeService jobTypeService;
 		model.addAttribute("categories",categories);
 		model.addAttribute("jobTypes",jobTypes);
 		model.addAttribute("companyAddress",company.getAddress());
-		return "post/postDetails";
+		return "post/postNew";
 	}
+	
 	//add new post process
 	@PostMapping("/newPost")
 	public String addNewPost(Authentication authentication,Model model,
@@ -101,4 +107,63 @@ JobTypeService jobTypeService;
 		return showPostsList(authentication, model, 1);
 	}
 	
+	//show post edit form
+	@RequestMapping("/editPostForm")
+	public String showEditPost(Authentication authentication,Model model,
+			PostForm postForm,
+			@RequestParam(value="id") int postId) {
+		    String username = authentication.getName();
+		    User user = userService.findByUserName(username);
+		    Company company = user.getCompany();	
+			postForm = new PostForm();
+			Post post = postService.getPostById(postId);
+			postForm.setTitle(post.getTitle());
+			postForm.setDescription(post.getDescription());
+			postForm.setExperience(post.getExperience());
+			postForm.setNumberOfRecruit(post.getNumberOfRecruit()+"");
+			SimpleDateFormat sdf = new SimpleDateFormat(
+				    "yyyy-MM-dd");
+			postForm.setExpireDate(sdf.format(post.getExpireDate())) ;
+			postForm.setSalary(post.getSalary());
+			postForm.setCategoryId(post.getCategory().getId());
+			postForm.setJobTypeId(post.getJobType().getId());
+		logger.info(post.getNumberOfRecruit() + "asdasdsd");
+		logger.info(postForm.getNumberOfRecruit());
+		List<Category> categories =  categoryService.getCategories();
+		List<JobType> jobTypes = jobTypeService.getJobTypes();
+		model.addAttribute("postForm",postForm);
+		model.addAttribute("categories",categories);
+		model.addAttribute("jobTypes",jobTypes);
+		model.addAttribute("companyAddress",company.getAddress());
+		model.addAttribute("id",postId);
+		return "post/postEdit";
+	}
+	
+	@PostMapping("/editPost")
+	public String editPost(Authentication authentication,Model model,
+			@RequestBody @Valid @ModelAttribute(value="postForm") PostForm postForm,
+			BindingResult theBindingResult,
+			@RequestParam(value = "id") int postId
+			) {
+		if(theBindingResult.hasErrors()) {
+			return showEditPost(authentication,model,postForm,postId);
+		}
+		String username = authentication.getName();
+		User user = userService.findByUserName(username);	
+		postService.updatePost(postForm, user,postId);
+		model.addAttribute("message","the post has been updated");
+		return showPostsList(authentication, model, 1);
+	}
+	
+	@RequestMapping("/viewPost") 
+	public String viewPost(Authentication authentication,Model model,
+			@RequestParam(value="id") int postId
+			) {				
+			    Post post = postService.getPostById(postId);
+			    List<ApplyPost> applyPosts = applyPostService.getApplyPostsByPostId(postId);
+			model.addAttribute("applyPosts",applyPosts);    
+			model.addAttribute("post",post);
+			return "post/postDetails";
+		}
 }
+

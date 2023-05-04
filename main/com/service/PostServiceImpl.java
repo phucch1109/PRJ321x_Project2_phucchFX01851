@@ -15,7 +15,6 @@ import com.dao.CompanyDao;
 import com.dao.JobTypeDao;
 import com.dao.PostDao;
 import com.entity.Category;
-import com.entity.Company;
 import com.entity.JobType;
 import com.entity.Post;
 import com.entity.User;
@@ -45,7 +44,7 @@ public class PostServiceImpl implements PostService{
 	@Override
 	@Transactional
 	public List<Post> getPostByUserId(int userId) {
-		return postDao.getPostByUserId(userId);
+		return postDao.getPostsByUserId(userId);
 	}
 	
 	@Override
@@ -95,5 +94,40 @@ public class PostServiceImpl implements PostService{
 		post.setCategory(category);
 		post.setUser(user);
 		return postDao.savePost(post);
+	}
+	
+	@Override
+	@Transactional
+	public Post getPostById(int postId) {
+		return postDao.getPostById(postId);
+	}
+	
+	@Override
+	@Transactional
+	public void updatePost(PostForm postForm,User user,int postId) {
+		Post post = postDao.getPostById(postId);
+		post.setTitle(postForm.getTitle());
+		post.setDescription(postForm.getDescription());
+		post.setExperience(postForm.getExperience());
+		post.setNumberOfRecruit(Integer.parseInt(postForm.getNumberOfRecruit()));
+		//format date
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		java.util.Date parsed;
+		try {
+			parsed = format.parse(postForm.getExpireDate());
+			Date expireDate = new Date(parsed.getTime());
+			post.setExpireDate(expireDate);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+		post.setCompany(user.getCompany());
+		post.setSalary(postForm.getSalary());
+		JobType jobType = jobTypeDao.getJobTypeById(postForm.getJobTypeId());
+		post.setJobType(jobType);
+		Category category = categoryDao.getCategoryById(postForm.getCategoryId());
+		post.setCategory(category);
+		post.setUser(user);
+		postDao.updatePost(post);
 	}
 }

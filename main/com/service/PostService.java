@@ -13,4 +13,6 @@ public interface PostService {
 	public int getCountByUserId(int userId);
 	public int deletePost(int postId);
 	public int addPost(PostForm postForm,User user);
+	public Post getPostById(int postId);
+	public void updatePost(PostForm postForm,User user,int postId);
 }

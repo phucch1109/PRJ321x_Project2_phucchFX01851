@@ -251,7 +251,7 @@ SET FOREIGN_KEY_CHECKS = 1;
 -- sum job offer by category
 -- SELECT COUNT(id) FROM Posts WHERE categoryId = 3 ;
 -- SELECT cat.name,COUNT(p.number_of_recruit) FROM categorys AS cat INNER JOIN Posts AS p ON cat.id = p.categoryId GROUP BY cat.id;
-select * from applyposts;
+select * from applyposts ;
 -- temp for deleting user
 -- delete from users_roles where user_id = 12;
 -- delete from users where id = 12;

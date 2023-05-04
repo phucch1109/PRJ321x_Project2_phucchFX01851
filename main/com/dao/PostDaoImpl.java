@@ -31,7 +31,7 @@ public class PostDaoImpl implements PostDao{
 	//get all posts
 	@Override
 	public List<Post> getPosts() {
-		Session currentSession = sessionFactory.getCurrentSession(); 
+		Session currentSession = sessionFactory.getCurrentSession();
 		Query<Post> query = currentSession.createQuery("from Post" , Post.class);
 		List<Post> posts = query.getResultList();
 		return posts;
@@ -51,7 +51,7 @@ public class PostDaoImpl implements PostDao{
 	
 	//get user's post (without pagination)
 	@Override
-	public List<Post> getPostByUserId(int userId) {
+	public List<Post> getPostsByUserId(int userId) {
 		Session currentSession = sessionFactory.getCurrentSession();
 		Query<Post> query = currentSession.createQuery("from Post where user.id =: userId" , Post.class);
 		query.setParameter("userId", userId);
@@ -74,6 +74,7 @@ public class PostDaoImpl implements PostDao{
 		return posts;
 	}
 	
+	//get number of user's posts
 	@Override
 	public int getCountByUserId(int userId) {
 		Session currentSession = sessionFactory.getCurrentSession();
@@ -93,9 +94,25 @@ public class PostDaoImpl implements PostDao{
 		return output;
 	}
 	
+	
+	@Override
+	public Post getPostById(int postId) {
+		Session currentSession = sessionFactory.getCurrentSession();
+		Query<Post> query = currentSession.createQuery("FROM Post where id =: postId" , Post.class);
+		query.setParameter("postId", postId);
+		Post post = query.getSingleResult();
+		return post;
+	}
+	
 	@Override
 	public int savePost(Post post) {
 		Session currentSession = sessionFactory.getCurrentSession();		
 		return (Integer) currentSession.save(post);
+	}
+	
+	@Override
+	public void updatePost(Post post) {
+		Session currentSession = sessionFactory.getCurrentSession();	
+		currentSession.update(post);
 	}
 }

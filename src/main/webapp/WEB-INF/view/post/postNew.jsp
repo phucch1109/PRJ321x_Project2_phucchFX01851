@@ -11,7 +11,7 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
-<title>Danh sách bài viết</title>
+<title>Bài viết</title>
 
 <meta charset="utf-8">
 <meta name="viewport"
@@ -77,54 +77,65 @@
 
 </head>
 <body>
-	<nav class="bg-light p-2">
+<nav class="bg-light p-2">
 		<a href="${pageContext.request.contextPath}/homepage" role="button" class="btn btn-primary">Về trang chủ</a>		
-		<a href="${pageContext.request.contextPath}/newPostForm" role="button" class="btn btn-primary">Tạo bài đăng</a>
-		<h3 class="text-center">Danh sách bài đăng</h3>
-	</nav>
-	<c:if test="${not empty message}"><div class="alert alert-primary" role="alert">${message}</div></c:if>
-	<main>
-		<div
-			class="container d-flex align-items-center justify-content-center flex-column">
-
-			<c:forEach items="${posts}" var="post">
-				<div class="row p-2 align-items-center item-border"
-					style="width: 900px">
-
-					<div class="col-lg">
-						<p>${post.jobType.name}</p>
-						<h4>${post.title}</h4>
-						<span class="fas fa-building"></span><span>${post.company.name}</span><span
-							class="icon-room"></span><span>${post.company.address}</span>
-					</div>
-					<div class="col-sm">
-						<a href="${pageContext.request.contextPath}/viewPost?id=${post.id}">
-							<button class="btn btn-primary float-right mx-2">Xem chi
-								tiết</button>
-						</a> <a
-							href="${pageContext.request.contextPath}/editPostForm?id=${post.id}">
-							<button class="btn btn-warning float-right mx-2">Cập
-								nhập</button>
-						</a> <a
-							href="${pageContext.request.contextPath}/deletePost?id=${post.id}">
-							<button class="btn btn-danger float-right mx-2" onclick="return confirm('bạn muốn xóa bài viết ${post.title}?');">Xóa</button>
-						</a>
-					</div>
-				</div>
+		<a href="${pageContext.request.contextPath}/postList" role="button" class="btn btn-primary">Về danh sách bài viết</a>
+		<h3 class="text-center">Đăng bài</h3>
+</nav>
+<c:if test="${not empty errorMessage}">
+<div class="alert alert-danger">${errorMessage}</div>
+</c:if>
+<c:if test="${not empty message}">
+<div class="alert alert-success">${message}</div>
+</c:if>
+<main class="container item-border p-5">
+			<form:form modelAttribute="postForm" action="${pageContext.request.contextPath}/newPost">
+			<h3 style="width:300px;display:inline-block">Chi tiết bài tuyển dụng</h3>
+			<button type="submit" class="float-right btn btn-primary mt-5">Tạo bài đăng</button>
+			
+			<p style="margin:10px 0px 0px 0px">Tiêu đề</p>
+			<form:input path="title" cssClass="form-control"/>
+			 <form:errors path="title" cssClass="error" />
+			 			
+			<p style="margin:10px 0px 0px 0px">Mô tả công việc</p>
+			<form:textarea path="description" cssClass="form-control"/>
+			<form:errors path="description" cssClass="error" />
+						
+			<p style="margin:10px 0px 0px 0px">Kinh nghiệm</p>
+			<form:input path="experience" cssClass="form-control"/>
+			<form:errors path="experience" cssClass="error" />
+						
+			<p style="margin:10px 0px 0px 0px">Số người cần tuyển</p>
+			<form:input path="numberOfRecruit" cssClass="form-control"/>
+			<form:errors path="numberOfRecruit" cssClass="error" />
+			
+			<p style="margin:10px 0px 0px 0px">Địa chỉ công ty</p>
+			<input type="text" class="form-control" name="address" value="${companyAddress}" readonly>
+					
+			<p style="margin:10px 0px 0px 0px">Hạn ứng tuyển</p>
+			<form:input type="date" class="form-control" path="expireDate"/> 
+			<form:errors path="expireDate" cssClass="error" />			
+			
+			<p style="margin:10px 0px 0px 0px">Lương</p>
+			<form:input path="salary" cssClass="form-control"/>
+			<form:errors path="salary" cssClass="error" />
+						
+			<p style="margin:10px 0px 0px 0px">Loại công việc</p>
+			<form:select path="jobTypeId" cssClass="form-control">
+			<c:forEach items="${jobTypes}" var="jobType">
+			<form:option value="${jobType.id}" label="${jobType.name}"/>
 			</c:forEach>
-			<ul class="pagination">
-			<c:forEach var="j" begin="1" step="1" end="${maxPage}">
-				<!-- contruct a pagin link -->
-				<c:url var="pageLink" value="/postList">
-					<c:param name="page" value="${j}"></c:param>
-				</c:url>
-			    <!-- display page link -->	
-			    <c:if test="${page == j}"><li><a href="${pageLink}" class="page-link disabled"  style="background-color:beige">${j}</a></li> </c:if>
-				<c:if test="${page != j}"><li><a href="${pageLink}" class="page-link">${j}</a></li> </c:if>
+			</form:select>
+			<form:errors path="jobTypeId" cssClass="error" />
+						
+			<p style="margin:10px 0px 0px 0px">Danh mục công việc</p>
+			<form:select path="categoryId" cssClass="form-control">
+			<c:forEach items="${categories}" var="category">
+			<form:option value="${category.id}" label="${category.name}"/>
 			</c:forEach>
-		</ul>
-		</div>
-		
-	</main>
+			</form:select>
+			<form:errors path="categoryId" cssClass="error" />
+			</form:form>
+</main>
 </body>
 </html>
