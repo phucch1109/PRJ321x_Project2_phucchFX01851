@@ -87,6 +87,16 @@ public class HomeController {
 		return showUserProfile(authentication, model);
 	}
 	
+	//handle search input from homepage
+	@RequestMapping("/search")
+	public String searchPosts(Model model,
+			@RequestParam(value = "type") int type,
+			@RequestParam(value = "searchQuery") String queryString) {
+		
+		return "profile";
+	}
+	
+	
 	
 	
 	

@@ -18,7 +18,26 @@ public class ApplyPostServiceImpl implements ApplyPostService{
 	@Override
 	@Transactional
 	public List<ApplyPost> getApplyPostsByPostId(int postId) {
-		return applyPostDao.getApplyPostByPostId(postId);
+		return applyPostDao.getApplyPostsByPostId(postId);
 	}
 	
+	@Override
+	@Transactional
+	public ApplyPost getApplyPostById(int applyPostId) {
+		return applyPostDao.getApplyPostById(applyPostId);
+	}
+	
+	@Override
+	@Transactional
+	public void approveApplyPost(ApplyPost applyPost) {
+		applyPost.setStatus(1);
+		applyPostDao.updateApplyPost(applyPost);
+	}
+	
+	@Override
+	@Transactional
+	public void refuseApplyPost(ApplyPost applyPost) {
+		applyPost.setStatus(2);
+		applyPostDao.updateApplyPost(applyPost);
+	}
 }

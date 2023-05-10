@@ -27,11 +27,27 @@ public class ApplyPostDaoImpl implements ApplyPostDao{
 	
 	
 	@Override
-	public List<ApplyPost> getApplyPostByPostId(int postId) {
+	public List<ApplyPost> getApplyPostsByPostId(int postId) {
 		Session currentSession = sessionFactory.getCurrentSession();
 		Query<ApplyPost> query = currentSession.createQuery("FROM ApplyPost where post.id =: postId",ApplyPost.class);
 		query.setParameter("postId", postId);
 		List<ApplyPost> applyPosts = query.getResultList();
 		return applyPosts;
+	}
+
+
+	@Override
+	public ApplyPost getApplyPostById(int applyPostId) {
+		Session currentSession = sessionFactory.getCurrentSession();
+		Query<ApplyPost> query = currentSession.createQuery("FROM ApplyPost where id =: id",ApplyPost.class);
+		query.setParameter("id", applyPostId);
+		ApplyPost applyPost = query.getSingleResult();
+		return applyPost;
+	}
+	
+	@Override
+	public void updateApplyPost(ApplyPost applyPost) {
+		Session currentSession = sessionFactory.getCurrentSession();
+		currentSession.update(applyPost);
 	}
 }

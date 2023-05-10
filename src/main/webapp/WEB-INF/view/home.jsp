@@ -140,17 +140,84 @@
 								Role(s):
 								<security:authentication property="principal.authorities" />
 							</h2>
-							<a href="${pageContext.request.contextPath}/profile">							
+							<a href="${pageContext.request.contextPath}/profile">
 								<button class="btn btn-primary py-2" type=submit>Hồ sơ</button>
 							</a>
-							<a href="${pageContext.request.contextPath}/postList">
-							<button class="btn btn-primary py-2" type=submit>Danh sách bài đăng</button></a>
+							<security:authorize access="hasRole('RECRUITER')">
+								<a href="${pageContext.request.contextPath}/postList">
+									<button class="btn btn-primary py-2" type=submit>Danh
+										sách bài đăng</button>
+								</a>
+							</security:authorize>
 						</c:if>
 					</div>
 				</div>
 			</div>
 		</section>
 		<section class="site-section">
+			<!-- thanh tìm kiếm chỉ hiện thị đến employee -->
+			<security:authorize access="hasRole('EMPLOYEE')">
+				
+					<div class="container d-flex flex-column align-items-center">
+
+						<h2 class="section-title mb-2">Tìm kiếm</h2>
+
+						<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+							<li class="nav-item" role="presentation">
+								<button class="nav-link active" id="pills-home-tab"
+									data-bs-toggle="pill" data-bs-target="#pills-home"
+									type="button" role="tab" aria-controls="pills-home"
+									aria-selected="true">Tìm theo công việc</button>
+							</li>
+							<li class="nav-item" role="presentation">
+								<button class="nav-link" id="pills-profile-tab"
+									data-bs-toggle="pill" data-bs-target="#pills-profile"
+									type="button" role="tab" aria-controls="pills-profile"
+									aria-selected="false">Tìm theo công ty</button>
+							</li>
+							<li class="nav-item" role="presentation">
+								<button class="nav-link" id="pills-contact-tab"
+									data-bs-toggle="pill" data-bs-target="#pills-contact"
+									type="button" role="tab" aria-controls="pills-contact"
+									aria-selected="false">Tìm theo địa điểm</button>
+							</li>
+						</ul>
+						<div class="tab-content" id="pills-tabContent">
+							<div class="tab-pane fade show active" id="pills-home"
+								role="tabpanel" aria-labelledby="pills-home-tab">
+								<form action="${pageContext.request.contextPath}/search?type=0">
+								<div class="input-group mb-5" style="width: 800px">
+									<input type="text" name="searchQuery" class="form-control" placeholder="Tìm theo công việc">
+									<button class="btn btn-outline-secondary" type="submit">Tìm
+										kiếm</button>
+								</div>
+								</form>
+							</div>
+							<div class="tab-pane fade" id="pills-profile" role="tabpanel"
+								aria-labelledby="pills-profile-tab">
+								<form action="${pageContext.request.contextPath}/search?type=1">
+								<div class="input-group mb-5" style="width: 800px">
+									<input type="text" name="searchQuery" class="form-control" placeholder="Tìm theo công ty">
+									<button class="btn btn-outline-secondary" type="submit">Tìm
+										kiếm</button>
+								</div>
+								</form>
+							</div>
+							<div class="tab-pane fade" id="pills-contact" role="tabpanel"
+								aria-labelledby="pills-contact-tab">
+								<form action="${pageContext.request.contextPath}/search?type=2">
+								<div class="input-group mb-5" style="width: 800px">
+									<input type="text" name="searchQuery" class="form-control" placeholder="Tìm theo địa điểm">
+									<button class="btn btn-outline-secondary" type="submit">Tìm
+										kiếm</button>
+								</div>
+								</form>
+								</div>
+						</div>
+					</div>
+				
+			</security:authorize>
+
 			<!-- Các công ty -->
 			<div class="container">
 

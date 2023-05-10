@@ -138,10 +138,10 @@
 					</c:if>
 					<!-- incase applypost is approved -->
 					<c:if test="${applyPost.status==1}">
-					<p class="text-success">Đã được chấp nhận </p>
+					<h3 class="text-success float-right">Đã được chấp nhận </h3>
 					</c:if>
 					<c:if test="${applyPost.status==2}">
-					<p class="text-danger">Đã bị từ chối </p>
+					<h3 class="text-danger float-right">Đã bị từ chối </h3>
 					</c:if>
 					</div>
 				</div>

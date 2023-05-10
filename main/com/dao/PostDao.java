@@ -15,4 +15,5 @@ public interface PostDao {
 	public int savePost(Post post);
 	public Post getPostById(int postId);
 	public void updatePost(Post post);
+	public List<Post> getPostsByCompanyName(String name,int index);
 }

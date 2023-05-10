@@ -115,4 +115,19 @@ public class PostDaoImpl implements PostDao{
 		Session currentSession = sessionFactory.getCurrentSession();	
 		currentSession.update(post);
 	}
+	
+	
+	//get company search's post with pagination (max result = 5)
+		@Override
+		public List<Post> getPostsByCompanyName(String name,int index) {
+			int maxResult = 5;
+			int offset = (index-1) *maxResult;
+			Session currentSession = sessionFactory.getCurrentSession();
+			Query<Post> query = currentSession.createQuery("from Post where company.name like '%:name%'" , Post.class);
+			query.setParameter("name", name);)
+			query.setFirstResult(offset);
+			query.setMaxResults(maxResult);
+			List<Post> posts = query.getResultList();
+			return posts;
+		}
 }

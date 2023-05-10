@@ -165,5 +165,23 @@ private Logger logger = Logger.getLogger(getClass().getName());
 			model.addAttribute("post",post);
 			return "post/postDetails";
 		}
+	
+	@RequestMapping("/approveApply")
+	public String approveApplyProcess(Authentication authentication,Model model,
+			@RequestParam(value="id") int applyPostId) {
+		ApplyPost applyPost = applyPostService.getApplyPostById(applyPostId);
+		applyPostService.approveApplyPost(applyPost);
+		model.addAttribute("message","đơn ứng tuyển đã được chấp nhận");
+		return viewPost(authentication, model, applyPost.getPost().getId());
+	}
+	
+	@RequestMapping("/refuseApply")
+	public String refuseApplyProcess(Authentication authentication,Model model,
+			@RequestParam(value="id") int applyPostId) {
+		ApplyPost applyPost = applyPostService.getApplyPostById(applyPostId);
+		applyPostService.refuseApplyPost(applyPost);
+		model.addAttribute("message","đơn ứng tuyển đã bị từ chối");
+		return viewPost(authentication, model, applyPost.getPost().getId());
+	}
 }
 
