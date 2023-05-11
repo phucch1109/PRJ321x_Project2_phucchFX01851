@@ -15,4 +15,8 @@ public interface PostService {
 	public int addPost(PostForm postForm,User user);
 	public Post getPostById(int postId);
 	public void updatePost(PostForm postForm,User user,int postId);
+	public List<Post> getPostsByCompanyName(String name,int index);
+	public int getCountOfLastSearchQuery();
+	public List<Post> getPostsByAddress(String name,int index);
+	public List<Post> getPostsByCategory(String name,int index) ;
 }

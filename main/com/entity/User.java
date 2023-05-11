@@ -48,11 +48,17 @@ public class User {
 	@JoinColumn(name = "company_id",updatable = false)
 	private Company company;
 	
-	@OneToOne(mappedBy = "user")
-	private UserCurrentFile userCurrentFile;
-	
 	@OneToMany(mappedBy = "user")
 	private List<AvatarFile> avatarFiles;
+	
+	@OneToOne
+	@JoinColumn(name="cvFile_id")
+	private CvFile cvFile;
+	
+	@OneToOne
+	@JoinColumn(name="avatar_id")
+	private ApplyPost applyPost;
+	
 	
 	@OneToMany(mappedBy = "user", cascade= CascadeType.ALL)
 	private List<CvFile> cvFiles;
@@ -70,7 +76,7 @@ public class User {
 
 	public User(int id, String userName, String password, String firstName, String lastName, String email,
 		String phoneNumber, String description, Collection<Role> roles, List<Post> posts, Company company,
-		UserCurrentFile userCurrentFile, List<AvatarFile> avatarFiles, List<CvFile> cvFiles) {
+	 List<AvatarFile> avatarFiles, List<CvFile> cvFiles) {
 	super();
 	this.id = id;
 	this.userName = userName;
@@ -83,7 +89,6 @@ public class User {
 	this.roles = roles;
 	this.posts = posts;
 	this.company = company;
-	this.userCurrentFile = userCurrentFile;
 	this.avatarFiles = avatarFiles;
 	this.cvFiles = cvFiles;
 }
@@ -174,17 +179,6 @@ public class User {
 	public void setCompany(Company company) {
 		this.company = company;
 	}
-
-	public UserCurrentFile getUserCurrentFile() {
-		return userCurrentFile;
-	}
-
-	public void setUserCurrentFile(UserCurrentFile userCurrentFile) {
-		this.userCurrentFile = userCurrentFile;
-	}
-	
-
-
 
 	public List<AvatarFile> getAvatarFiles() {
 		return avatarFiles;

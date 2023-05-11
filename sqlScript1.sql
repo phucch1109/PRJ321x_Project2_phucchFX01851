@@ -39,6 +39,8 @@ CREATE TABLE users (
   phoneNumber varchar(255),
   description nvarchar(255),
   company_id int,
+  avatar_id int,
+  cvFile_id int,
   PRIMARY KEY (id),
   CONSTRAINT FK_USER_COMPANY FOREIGN KEY (company_id) 
   REFERENCES companies (id) 
@@ -130,6 +132,9 @@ user_id int NOT NULL,
 CONSTRAINT userCv_fk FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
+ALTER TABLE users
+ADD FOREIGN KEY (cvFile_id) REFERENCES cv_files(id);
+
 INSERT INTO cv_files (id,name,dateCreated,user_id)
 VALUES (1,"name",curdate(),1), (2,"name",curdate(),2), (3,"name",curdate(),3);
 
@@ -142,21 +147,8 @@ user_id int NOT NULL,
 CONSTRAINT userAvatar FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
-CREATE TABLE user_current_file (
- id int PRIMARY KEY,
- user_id int NOT NULL,
- avatar_id int ,
- cvFile_id int,
- CONSTRAINT FK_USER_CURRENT FOREIGN KEY (user_id) 
- REFERENCES users (id) ,
- CONSTRAINT FK_USERAVATAR_CURRENT FOREIGN KEY (avatar_id) 
- REFERENCES avatar_files (id) ,
- CONSTRAINT FK_USERCVFILE_CURRENT FOREIGN KEY (cvFile_id) 
- REFERENCES cv_files (id) 
-);
-
-INSERT INTO user_current_file (id,user_id,avatar_id,cvFile_id)
-VALUES (1,1,NULL,NULL),(2,2,NULL,NULL) , (3,3,NULL,NULL);
+ALTER TABLE users
+ADD FOREIGN KEY (avatar_id) REFERENCES avatar_files(id);
 
 -- job type
 CREATE TABLE job_types (
@@ -251,7 +243,7 @@ SET FOREIGN_KEY_CHECKS = 1;
 -- sum job offer by category
 -- SELECT COUNT(id) FROM Posts WHERE categoryId = 3 ;
 -- SELECT cat.name,COUNT(p.number_of_recruit) FROM categorys AS cat INNER JOIN Posts AS p ON cat.id = p.categoryId GROUP BY cat.id;
-select * from applyposts ;
+select * from posts ;
 -- temp for deleting user
 -- delete from users_roles where user_id = 12;
 -- delete from users where id = 12;

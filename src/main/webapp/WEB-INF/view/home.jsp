@@ -185,7 +185,8 @@
 						<div class="tab-content" id="pills-tabContent">
 							<div class="tab-pane fade show active" id="pills-home"
 								role="tabpanel" aria-labelledby="pills-home-tab">
-								<form action="${pageContext.request.contextPath}/search?type=0">
+								<form action="${pageContext.request.contextPath}/search">
+								<input type="hidden" name="type" value="0">
 								<div class="input-group mb-5" style="width: 800px">
 									<input type="text" name="searchQuery" class="form-control" placeholder="Tìm theo công việc">
 									<button class="btn btn-outline-secondary" type="submit">Tìm
@@ -195,7 +196,8 @@
 							</div>
 							<div class="tab-pane fade" id="pills-profile" role="tabpanel"
 								aria-labelledby="pills-profile-tab">
-								<form action="${pageContext.request.contextPath}/search?type=1">
+								<form action="${pageContext.request.contextPath}/search">
+								<input type="hidden" name="type" value="1">
 								<div class="input-group mb-5" style="width: 800px">
 									<input type="text" name="searchQuery" class="form-control" placeholder="Tìm theo công ty">
 									<button class="btn btn-outline-secondary" type="submit">Tìm
@@ -205,7 +207,8 @@
 							</div>
 							<div class="tab-pane fade" id="pills-contact" role="tabpanel"
 								aria-labelledby="pills-contact-tab">
-								<form action="${pageContext.request.contextPath}/search?type=2">
+								<form action="${pageContext.request.contextPath}/search">
+								<input type="hidden" name="type" value="2">
 								<div class="input-group mb-5" style="width: 800px">
 									<input type="text" name="searchQuery" class="form-control" placeholder="Tìm theo địa điểm">
 									<button class="btn btn-outline-secondary" type="submit">Tìm

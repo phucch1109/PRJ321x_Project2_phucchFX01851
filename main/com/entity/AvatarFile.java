@@ -26,6 +26,7 @@ private Date dateCreated;
 @ManyToOne
 @JoinColumn(name = "user_id")
 private User user;
-@OneToOne(mappedBy = "avatarFile")
-private UserCurrentFile userCurrentFile;
+@OneToOne(mappedBy = "applyPost")
+private User selected;
+
 }

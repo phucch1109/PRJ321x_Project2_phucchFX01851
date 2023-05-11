@@ -16,4 +16,7 @@ public interface PostDao {
 	public Post getPostById(int postId);
 	public void updatePost(Post post);
 	public List<Post> getPostsByCompanyName(String name,int index);
+	public int getCountOfLastSearchQuery();
+	public List<Post> getPostsByAddress(String name,int index);
+	public List<Post> getPostsByCategory(String name,int index);
 }

@@ -183,5 +183,26 @@ private Logger logger = Logger.getLogger(getClass().getName());
 		model.addAttribute("message","đơn ứng tuyển đã bị từ chối");
 		return viewPost(authentication, model, applyPost.getPost().getId());
 	}
+	
+	
+	//handle search input from homepage
+		@RequestMapping("/search")
+		public String searchPosts(Model model,
+				@RequestParam(value = "type") int type,
+				@RequestParam(value = "searchQuery") String queryString,
+				@RequestParam(value="page",defaultValue = "1") int page) {
+			List<Post> posts;
+			if(type == 0) posts  = postService.getPostsByCategory(queryString, page);
+			else if(type == 1)posts  = postService.getPostsByCompanyName(queryString, page);
+			else posts= postService.getPostsByAddress(queryString, page);
+			int countPost = postService.getCountOfLastSearchQuery();
+			model.addAttribute("searchQuery",queryString);
+			model.addAttribute("posts",posts);
+			model.addAttribute("maxPage",(countPost-1)/5+1);
+			model.addAttribute("page",page);
+			model.addAttribute("type",type);
+			return "post/postSearchResult";
+		}
+		
 }
 

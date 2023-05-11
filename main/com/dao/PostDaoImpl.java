@@ -17,6 +17,7 @@ import com.entity.Post;
 public class PostDaoImpl implements PostDao{
 	@Autowired
 	SessionFactory sessionFactory;
+	String lastQuery;
 	
 	@Override
 	//get top 5 newest posts
@@ -116,18 +117,56 @@ public class PostDaoImpl implements PostDao{
 		currentSession.update(post);
 	}
 	
-	
 	//get company search's post with pagination (max result = 5)
-		@Override
-		public List<Post> getPostsByCompanyName(String name,int index) {
+	@Override
+	public List<Post> getPostsByCompanyName(String name,int index) {
 			int maxResult = 5;
 			int offset = (index-1) *maxResult;
 			Session currentSession = sessionFactory.getCurrentSession();
-			Query<Post> query = currentSession.createQuery("from Post where company.name like '%:name%'" , Post.class);
-			query.setParameter("name", name);)
+			String queryString = "from Post where company.name like '%"+name+"%'";
+			lastQuery = queryString;
+			Query<Post> query = currentSession.createQuery(queryString , Post.class);
+		
 			query.setFirstResult(offset);
 			query.setMaxResults(maxResult);
 			List<Post> posts = query.getResultList();
 			return posts;
-		}
+	}
+	
+	@Override
+	public List<Post> getPostsByCategory(String name,int index) {
+		int maxResult = 5;
+		int offset = (index-1) *maxResult;
+		Session currentSession = sessionFactory.getCurrentSession();
+		String queryString = "from Post where title like '%"+name+"%'";
+		lastQuery = queryString;
+		Query<Post> query = currentSession.createQuery(queryString , Post.class);
+		query.setFirstResult(offset);
+		query.setMaxResults(maxResult);
+		List<Post> posts = query.getResultList();
+		return posts;
+	}
+	
+	@Override
+	public List<Post> getPostsByAddress(String name,int index) {
+		int maxResult = 5;
+		int offset = (index-1) *maxResult;
+		Session currentSession = sessionFactory.getCurrentSession();
+		String queryString = "from Post where company.address like '%"+name+"%'";
+		lastQuery = queryString;
+		Query<Post> query = currentSession.createQuery(queryString , Post.class);
+		query.setFirstResult(offset);
+		query.setMaxResults(maxResult);
+		List<Post> posts = query.getResultList();
+		return posts;
+	}
+	
+	@Override
+	public int getCountOfLastSearchQuery() {
+		Session currentSession = sessionFactory.getCurrentSession();
+		String queryString = "SELECT COUNT (*) "+lastQuery;
+		Query<Long> query = currentSession.createQuery(queryString, Long.class);
+		long output = query.getSingleResult();
+		return (int)output;
+	}
 }

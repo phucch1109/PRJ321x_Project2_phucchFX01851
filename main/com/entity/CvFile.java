@@ -15,6 +15,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name="cv_files")
 public class CvFile {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name= "id")
@@ -27,14 +28,18 @@ public class CvFile {
 	@JoinColumn(name = "user_id")
 	private User user;
 	@OneToOne(mappedBy = "cvFile")
-	private UserCurrentFile userCurrentFile;
-	public CvFile(int id, String name, Date dateCreated, User user, UserCurrentFile userCurrentFile) {
+	private User selected;
+	
+	
+
+	
+	public CvFile(int id, String name, Date dateCreated, User user, User selected) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.dateCreated = dateCreated;
 		this.user = user;
-		this.userCurrentFile = userCurrentFile;
+		this.selected = selected;
 	}
 	public int getId() {
 		return id;
@@ -60,12 +65,12 @@ public class CvFile {
 	public void setUser(User user) {
 		this.user = user;
 	}
-	public UserCurrentFile getUserCurrentFile() {
-		return userCurrentFile;
+	public User getSelected() {
+		return selected;
 	}
-	public void setUserCurrentFile(UserCurrentFile userCurrentFile) {
-		this.userCurrentFile = userCurrentFile;
+	public void setSelected(User selected) {
+		this.selected = selected;
 	}
-	
+
 	
 }

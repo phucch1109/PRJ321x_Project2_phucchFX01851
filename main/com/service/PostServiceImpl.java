@@ -130,4 +130,28 @@ public class PostServiceImpl implements PostService{
 		post.setUser(user);
 		postDao.updatePost(post);
 	}
+	
+	@Override
+	@Transactional
+	public List<Post> getPostsByCompanyName(String name,int index) {
+		return postDao.getPostsByCompanyName(name, index);
+	}
+	
+	@Override
+	@Transactional
+	public int getCountOfLastSearchQuery() {
+		return postDao.getCountOfLastSearchQuery();
+	}
+	
+	@Override
+	@Transactional
+	public List<Post> getPostsByCategory(String name,int index) {
+		return postDao.getPostsByCategory(name, index);
+	}
+	
+	@Override
+	@Transactional
+	public List<Post> getPostsByAddress(String name,int index) {
+		return postDao.getPostsByAddress(name, index);
+	}
 }
