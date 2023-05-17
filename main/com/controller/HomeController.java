@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.dao.UserDao;
 import com.entity.Company;
@@ -91,9 +92,8 @@ public class HomeController {
 		return showUserProfile(authentication, model);
 	}
 	
-	@RequestMapping(value = "/uploadAvatar")
-	public String uploadAvatar(Model model,
-			@RequestParam(value="file",required = false) MultipartFile file,
+	@PostMapping(value = "/uploadAvatar")
+	public String uploadAvatar(@RequestParam CommonsMultipartFile file, Model model, 
 			Authentication authentication) {
 		
 	

@@ -152,7 +152,7 @@ public class AppConfig implements WebMvcConfigurer  {
 //	    return multipartResolver;
 //	}
 	
-	@Bean(name="filterMultipartResolver")
+	@Bean(name="multipartResolver")
     public CommonsMultipartResolver getMultipartResolver() throws IOException{
         CommonsMultipartResolver resolver = new CommonsMultipartResolver();
         resolver.setDefaultEncoding("utf-8");

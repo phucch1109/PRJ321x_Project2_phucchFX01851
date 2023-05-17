@@ -93,7 +93,7 @@
 	<a href="${pageContext.request.contextPath}/homepage">
 		<button class="btn btn-primary">trở lại homepage</button>
 	</a>
-	<form action="${pageContext.request.contextPath}/uploadAvatar"
+	<form method="POST" action="${pageContext.request.contextPath}/uploadAvatar"
 		enctype="multipart/form-data">
          <input type="file" name="file" accept="image/png, image/gif, image/jpeg" />
 		<input type="submit" value="Đổi avatar"  class="btn btn-primary"/>
