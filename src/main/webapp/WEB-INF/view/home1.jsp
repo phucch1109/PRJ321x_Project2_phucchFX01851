@@ -26,6 +26,7 @@
 		<br><br>
 		First name: ${user.firstName}, Last name: ${user.lastName}, Email: ${user.email}
 	</p>
+	<a href="${pageContext.request.contextPath}/homepage">homepage  </a>
 	
 	<security:authorize access="hasRole('MANAGER')">
 	

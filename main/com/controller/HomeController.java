@@ -10,7 +10,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.dao.UserDao;
 import com.entity.Company;
@@ -21,6 +24,7 @@ import com.service.CompanyService;
 import com.service.PostService;
 import com.service.UserService;
 import com.subEntity.TopCategoryResult;
+
 
 @Controller
 public class HomeController {
@@ -84,6 +88,20 @@ public class HomeController {
 	public String updateCompany(Authentication authentication,Model model,
 			@ModelAttribute(value="company") Company company) {
 		companyService.update(company);
+		return showUserProfile(authentication, model);
+	}
+	
+	@RequestMapping(value = "/uploadAvatar")
+	public String uploadAvatar(Model model,
+			@RequestParam(value="file",required = false) MultipartFile file,
+			Authentication authentication) {
+		
+	
+		if(file == null) {
+			model.addAttribute("message","empty");
+			return showUserProfile(authentication, model);
+		}
+		model.addAttribute("message","uploaded");
 		return showUserProfile(authentication, model);
 	}
 	

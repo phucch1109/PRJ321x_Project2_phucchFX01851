@@ -1,6 +1,7 @@
 package com.config;
 
 import java.beans.PropertyVetoException;
+import java.io.IOException;
 import java.util.Properties;
 import java.util.logging.Logger;
 
@@ -16,6 +17,8 @@ import org.springframework.core.env.Environment;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+import org.springframework.web.multipart.support.MultipartFilter;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -142,6 +145,27 @@ public class AppConfig implements WebMvcConfigurer  {
 		return txManager;
 	}	
 	
+//	@Bean(name = "multipartResolver")
+//	public CommonsMultipartResolver multipartResolver() {
+//	    CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+//	    multipartResolver.setMaxUploadSize(1000000);
+//	    return multipartResolver;
+//	}
+	
+	@Bean(name="filterMultipartResolver")
+    public CommonsMultipartResolver getMultipartResolver() throws IOException{
+        CommonsMultipartResolver resolver = new CommonsMultipartResolver();
+        resolver.setDefaultEncoding("utf-8");
+        resolver.setMaxUploadSizePerFile(5242880);//5MB         
+        return resolver;
+    }
+	
+//	@Bean
+//	public MultipartFilter multipartFilter(){
+//	    MultipartFilter multipartFilter = new MultipartFilter();
+//	    multipartFilter.setMultipartResolverBeanName("multipartResolver");
+//	    return multipartFilter;
+//	}
 	
 	/* Add support for reading web resources: css, images, js, etc ... */
 	public void addResourceHandlers(final ResourceHandlerRegistry registry) {
