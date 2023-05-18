@@ -145,20 +145,20 @@ public class AppConfig implements WebMvcConfigurer  {
 		return txManager;
 	}	
 	
-//	@Bean(name = "multipartResolver")
-//	public CommonsMultipartResolver multipartResolver() {
-//	    CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
-//	    multipartResolver.setMaxUploadSize(1000000);
-//	    return multipartResolver;
-//	}
+	@Bean(name = "multipartResolver")
+	public CommonsMultipartResolver multipartResolver() {
+	    CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+	    multipartResolver.setMaxUploadSize(1000000);
+	    return multipartResolver;
+	}
 	
-	@Bean(name="multipartResolver")
-    public CommonsMultipartResolver getMultipartResolver() throws IOException{
-        CommonsMultipartResolver resolver = new CommonsMultipartResolver();
-        resolver.setDefaultEncoding("utf-8");
-        resolver.setMaxUploadSizePerFile(5242880);//5MB         
-        return resolver;
-    }
+//	@Bean(name="multipartResolver")
+//    public CommonsMultipartResolver getMultipartResolver() throws IOException{
+//        CommonsMultipartResolver resolver = new CommonsMultipartResolver();
+//        resolver.setDefaultEncoding("utf-8");
+//        resolver.setMaxUploadSizePerFile(5242880);//5MB         
+//        return resolver;
+//    }
 	
 //	@Bean
 //	public MultipartFilter multipartFilter(){

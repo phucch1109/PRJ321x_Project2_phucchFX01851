@@ -1,6 +1,15 @@
 package com.controller;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
+
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -37,7 +46,8 @@ public class HomeController {
 	CategoryService categoryService;
 	@Autowired
 	UserService userService;
-	
+	@Autowired
+    ServletContext context;
 	
 	//demo
 	@GetMapping("/")
@@ -92,16 +102,38 @@ public class HomeController {
 		return showUserProfile(authentication, model);
 	}
 	
+	private static final List<String> contentTypes = Arrays.asList("image/png", "image/jpeg", "image/gif");
+	//hanble upload avatar
 	@PostMapping(value = "/uploadAvatar")
-	public String uploadAvatar(@RequestParam CommonsMultipartFile file, Model model, 
-			Authentication authentication) {
+	public String uploadAvatar(@RequestParam MultipartFile file, Model model, 
+			Authentication authentication,HttpSession session
+			) {
 		
-	
-		if(file == null) {
-			model.addAttribute("message","empty");
+		//validation
+		if(file.isEmpty()) {
+			model.addAttribute("errorMessage","You must choose a file to upload");
 			return showUserProfile(authentication, model);
 		}
-		model.addAttribute("message","uploaded");
+		String fileContentType = file.getContentType();
+		if(!contentTypes.contains(fileContentType)) { 
+			model.addAttribute("errorMessage","You must select image file");
+			return showUserProfile(authentication, model);
+		}
+		//saveing
+		String filePath = session.getServletContext().getRealPath("/");
+		model.addAttribute("file",file);
+		model.addAttribute("message",filePath+"/"+file.getOriginalFilename());
+//		   try{  
+//		        byte barr[]=file.getBytes();  
+//		          
+//		        BufferedOutputStream bout=new BufferedOutputStream(  
+//		                 new FileOutputStream(filePath+"/"+file.getOriginalFilename()));  
+//		        bout.write(barr);  
+//		        bout.flush();  
+//		        bout.close();  
+//		          
+//		        }catch(Exception e){System.out.println(e);}  
+		   
 		return showUserProfile(authentication, model);
 	}
 	
