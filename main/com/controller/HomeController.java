@@ -4,8 +4,11 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.List;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -49,6 +52,7 @@ public class HomeController {
 	@Autowired
     ServletContext context;
 	
+	private Logger logger = Logger.getLogger(getClass().getName());
 	//demo
 	@GetMapping("/")
 	public String showHome() {
@@ -74,14 +78,32 @@ public class HomeController {
 	public String showUserProfile(Authentication authentication,Model model) {
 		String username = authentication.getName();
 		User user = userService.findByUserName(username);
+		//check avatar
+				if(user.getAvatar()!= null) {
+					logger.info("avatar != null");
+					byte[] encodeBase64 = Base64.getEncoder().encode(user.getAvatar());
+				    String base64Encoded = "";
+						try {
+							logger.info("running");
+							base64Encoded = new String(encodeBase64, "UTF-8");
+						} catch (UnsupportedEncodingException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+							logger.info("something gone wrong!");
+						}
+				        model.addAttribute("base64Encoded",base64Encoded); 
+				}
 		model.addAttribute(user);
 		Company company;
+		
+		//add company detail if role = Recruiter
 		boolean hasRecruiterRole = authentication.getAuthorities().stream()
 		          .anyMatch(r -> r.getAuthority().equals("ROLE_RECRUITER"));
 		if(hasRecruiterRole) {
 			company = user.getCompany();
 			model.addAttribute(company);
 		}
+		
 		return "profile";
 				
 	}
@@ -107,7 +129,7 @@ public class HomeController {
 	@PostMapping(value = "/uploadAvatar")
 	public String uploadAvatar(@RequestParam MultipartFile file, Model model, 
 			Authentication authentication,HttpSession session
-			) {
+			) throws IOException {
 		
 		//validation
 		if(file.isEmpty()) {
@@ -123,23 +145,13 @@ public class HomeController {
 		String filePath = session.getServletContext().getRealPath("/");
 		model.addAttribute("file",file);
 		model.addAttribute("message",filePath+"/"+file.getOriginalFilename());
-//		   try{  
-//		        byte barr[]=file.getBytes();  
-//		          
-//		        BufferedOutputStream bout=new BufferedOutputStream(  
-//		                 new FileOutputStream(filePath+"/"+file.getOriginalFilename()));  
-//		        bout.write(barr);  
-//		        bout.flush();  
-//		        bout.close();  
-//		          
-//		        }catch(Exception e){System.out.println(e);}  
-		   
+		byte[] prototypeFile = file.getBytes();
+		String username = authentication.getName();
+		User user = userService.findByUserName(username);
+		user.setAvatar(prototypeFile);
+		userService.update(user);
 		return showUserProfile(authentication, model);
 	}
-	
-	
-	
-	
 	
 	
 	

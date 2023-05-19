@@ -152,20 +152,6 @@ public class AppConfig implements WebMvcConfigurer  {
 	    return multipartResolver;
 	}
 	
-//	@Bean(name="multipartResolver")
-//    public CommonsMultipartResolver getMultipartResolver() throws IOException{
-//        CommonsMultipartResolver resolver = new CommonsMultipartResolver();
-//        resolver.setDefaultEncoding("utf-8");
-//        resolver.setMaxUploadSizePerFile(5242880);//5MB         
-//        return resolver;
-//    }
-	
-//	@Bean
-//	public MultipartFilter multipartFilter(){
-//	    MultipartFilter multipartFilter = new MultipartFilter();
-//	    multipartFilter.setMultipartResolverBeanName("multipartResolver");
-//	    return multipartFilter;
-//	}
 	
 	/* Add support for reading web resources: css, images, js, etc ... */
 	public void addResourceHandlers(final ResourceHandlerRegistry registry) {

@@ -88,6 +88,7 @@
 <c:if test="${not empty message}" > <div class="alert alert-success">${message }</div></c:if>
 <c:if test="${not empty file}" > <div class="alert alert-success">${file.originalFilename}</div></c:if>
 <c:if test="${not empty errorMessage}" > <div class="alert alert-danger">${errorMessage}</div></c:if>
+<img alt="img" src="data:image/jpeg;base64,${base64Encoded}"/>
 	<h2>
 		Xin chào người dùng:
 		<security:authentication property="principal.username" />
@@ -300,4 +301,7 @@
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/assets/user/assets/js/scripts.js"></script>
+	<script>
+	
+	</script>
 </body>

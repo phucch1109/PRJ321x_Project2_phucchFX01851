@@ -37,6 +37,9 @@ public class ApplyPost {
 	@JoinColumn(name = "post_id")
 	private Post post;
 
+	@Column(name = "cvFile")
+	private byte[] cvFile;
+	
 	public ApplyPost() {
 		super();
 	}

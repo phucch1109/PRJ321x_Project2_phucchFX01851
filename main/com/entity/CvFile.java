@@ -27,10 +27,6 @@ public class CvFile {
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User user;
-	@OneToOne(mappedBy = "cvFile")
-	private User selected;
-	
-	
 
 	
 	public CvFile(int id, String name, Date dateCreated, User user, User selected) {
@@ -39,7 +35,7 @@ public class CvFile {
 		this.name = name;
 		this.dateCreated = dateCreated;
 		this.user = user;
-		this.selected = selected;
+	
 	}
 	public int getId() {
 		return id;
@@ -65,12 +61,7 @@ public class CvFile {
 	public void setUser(User user) {
 		this.user = user;
 	}
-	public User getSelected() {
-		return selected;
-	}
-	public void setSelected(User selected) {
-		this.selected = selected;
-	}
+	
 
 	
 }

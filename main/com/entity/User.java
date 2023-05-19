@@ -51,20 +51,13 @@ public class User {
 	@OneToMany(mappedBy = "user")
 	private List<AvatarFile> avatarFiles;
 	
-	@OneToOne
-	@JoinColumn(name="cvFile_id")
-	private CvFile cvFile;
-	
-	@OneToOne
-	@JoinColumn(name="avatar_id")
-	private ApplyPost applyPost;
+	@Column(name = "cvFile")
+	private byte[] cvFile;
 	
 	
-	@OneToMany(mappedBy = "user", cascade= CascadeType.ALL)
-	private List<CvFile> cvFiles;
+	@Column(name = "avatar")
+	private byte[] avatar;
 	
-	@OneToMany(mappedBy = "user")
-	private List<ApplyPost> applyposts;
 	
 	public User() {
 	}
@@ -90,7 +83,7 @@ public class User {
 	this.posts = posts;
 	this.company = company;
 	this.avatarFiles = avatarFiles;
-	this.cvFiles = cvFiles;
+	
 }
 
 
@@ -191,26 +184,26 @@ public class User {
 	}
 
 
-
-	public List<CvFile> getCvFiles() {
-		return cvFiles;
+	public byte[] getCvFile() {
+		return cvFile;
 	}
 
 
-
-	public void setCvFiles(List<CvFile> cvFiles) {
-		this.cvFiles = cvFiles;
+	public void setCvFile(byte[] cvFile) {
+		this.cvFile = cvFile;
 	}
 
 
-	public List<ApplyPost> getApplyposts() {
-		return applyposts;
+	public byte[] getAvatar() {
+		return avatar;
 	}
 
 
-	public void setApplyposts(List<ApplyPost> applyposts) {
-		this.applyposts = applyposts;
+	public void setAvatar(byte[] avatar) {
+		this.avatar = avatar;
 	}
+
+
 	
 
 }
