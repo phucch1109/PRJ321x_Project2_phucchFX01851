@@ -86,9 +86,8 @@
 </head>
 <body>
 <c:if test="${not empty message}" > <div class="alert alert-success">${message }</div></c:if>
-<c:if test="${not empty file}" > <div class="alert alert-success">${file.originalFilename}</div></c:if>
 <c:if test="${not empty errorMessage}" > <div class="alert alert-danger">${errorMessage}</div></c:if>
-<img alt="img" src="data:image/jpeg;base64,${base64Encoded}"/>
+
 	<h2>
 		Xin chào người dùng:
 		<security:authentication property="principal.username" />
@@ -96,15 +95,29 @@
 	<a href="${pageContext.request.contextPath}/homepage">
 		<button class="btn btn-primary">trở lại homepage</button>
 	</a>
+	<!-- update avatar form -->
 	<form method="POST" action="${pageContext.request.contextPath}/uploadAvatar?${_csrf.parameterName}=${_csrf.token}"
-		enctype="multipart/form-data">
-         <input type="file" name="file" accept="image/png, image/gif, image/jpeg" />
-		<input type="submit" value="Đổi avatar"  class="btn btn-primary"/>
-	<!--  <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> -->	
-	</form>
-	<img
+		enctype="multipart/form-data" id="avatar-form">
+        
+         <label class="btn btn-primary">
+ 		 <i class="fa fa-image"></i> Chọn ảnh<input type="file" style="display: none;"  name="file" accept="image/png, image/gif, image/jpeg" id="avatar-input">
+	     </label>
+	</form> 
+	<!-- user avatar image -->
+	<c:if test="${empty base64Encoded}">	<img
 		src="${pageContext.request.contextPath}/avatar/11111111111111124.PNG"
-		class="avatar">
+		class="avatar"></c:if>
+	<c:if test="${not empty base64Encoded}"><img alt="img" class="avatar" src="data:image/jpeg;base64,${base64Encoded}"/>	</c:if>
+	
+	<security:authorize access="hasRole('EMPLOYEE')">
+	<form method="POST" action="${pageContext.request.contextPath}/uploadCV?${_csrf.parameterName}=${_csrf.token}"
+		enctype="multipart/form-data" id="cv-form">
+        
+         <label class="btn btn-primary">
+ 		 <i class="fa fa-edit"></i> Chọn CV<input type="file" style="display: none;"  name="file" accept="image/png, image/gif, image/jpeg" id="cv-input">
+	     </label>
+	</form> </security:authorize>
+
 	<div id="profileMain">
 
 		<div id="loginbox" style="margin-top: 50px;"
@@ -302,6 +315,11 @@
 	<script
 		src="${pageContext.request.contextPath}/assets/user/assets/js/scripts.js"></script>
 	<script>
-	
+	document.getElementById("avatar-input").onchange = function() {
+	    document.getElementById("avatar-form").submit();
+	};
+	document.getElementById("cv-input").onchange = function() {
+	    document.getElementById("cv-form").submit();
+	};
 	</script>
 </body>

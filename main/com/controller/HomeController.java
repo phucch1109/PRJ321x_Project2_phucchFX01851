@@ -112,6 +112,8 @@ public class HomeController {
 	@PostMapping("/updateProfile")
 	public String updateProfile(Authentication authentication,Model model,
 			@ModelAttribute(value="user") User user) {
+		User unModedUser = userService.findByUserName(user.getUserName());
+		user.setRoles(unModedUser.getRoles());
 		userService.update(user);
 		return showUserProfile(authentication, model);
 	}
@@ -136,20 +138,23 @@ public class HomeController {
 			model.addAttribute("errorMessage","You must choose a file to upload");
 			return showUserProfile(authentication, model);
 		}
+		if(file.getSize() > 1000000) {
+			model.addAttribute("errorMessage","File is too big");
+			return showUserProfile(authentication, model);
+		}
 		String fileContentType = file.getContentType();
 		if(!contentTypes.contains(fileContentType)) { 
 			model.addAttribute("errorMessage","You must select image file");
 			return showUserProfile(authentication, model);
 		}
-		//saveing
-		String filePath = session.getServletContext().getRealPath("/");
-		model.addAttribute("file",file);
-		model.addAttribute("message",filePath+"/"+file.getOriginalFilename());
+		
+		//saving
 		byte[] prototypeFile = file.getBytes();
 		String username = authentication.getName();
 		User user = userService.findByUserName(username);
 		user.setAvatar(prototypeFile);
 		userService.update(user);
+		model.addAttribute("message","avatar has been updated");
 		return showUserProfile(authentication, model);
 	}
 	
