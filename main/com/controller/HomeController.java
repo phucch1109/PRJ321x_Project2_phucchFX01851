@@ -138,10 +138,10 @@ public class HomeController {
 			model.addAttribute("errorMessage","You must choose a file to upload");
 			return showUserProfile(authentication, model);
 		}
-		if(file.getSize() > 1000000) {
-			model.addAttribute("errorMessage","File is too big");
-			return showUserProfile(authentication, model);
-		}
+//		if(file.getSize() > 1000000) {
+//			model.addAttribute("errorMessage","File is too big");
+//			return showUserProfile(authentication, model);
+//		}
 		String fileContentType = file.getContentType();
 		if(!contentTypes.contains(fileContentType)) { 
 			model.addAttribute("errorMessage","You must select image file");
@@ -157,6 +157,34 @@ public class HomeController {
 		model.addAttribute("message","avatar has been updated");
 		return showUserProfile(authentication, model);
 	}
+	
+	@PostMapping(value = "/uploadCV")
+	public String uploadCV(@RequestParam MultipartFile file, Model model, 
+			Authentication authentication,HttpSession session
+			) throws IOException {
+		
+		//validation
+		if(file.isEmpty()) {
+			model.addAttribute("errorMessage","You must choose a file to upload");
+			return showUserProfile(authentication, model);
+		}
+		String fileContentType = file.getContentType();
+		
+		if(!fileContentType.equals("application/pdf")) { 
+			model.addAttribute("errorMessage","You must select pdf file");
+			return showUserProfile(authentication, model);
+		}
+		//saving
+		byte[] prototypeFile = file.getBytes();
+		String username = authentication.getName();
+		User user = userService.findByUserName(username);
+		user.setCvFile(prototypeFile);
+		userService.update(user);
+		model.addAttribute("message","cv has been updated");
+		return showUserProfile(authentication, model);
+	}
+	
+	
 	
 	
 	

@@ -114,7 +114,7 @@
 		enctype="multipart/form-data" id="cv-form">
         
          <label class="btn btn-primary">
- 		 <i class="fa fa-edit"></i> Chọn CV<input type="file" style="display: none;"  name="file" accept="image/png, image/gif, image/jpeg" id="cv-input">
+ 		 <i class="fa fa-edit"></i> Chọn CV<input type="file" style="display: none;"  name="file" accept=".pdf" id="cv-input">
 	     </label>
 	</form> </security:authorize>
 

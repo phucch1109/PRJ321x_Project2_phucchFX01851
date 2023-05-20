@@ -158,9 +158,10 @@ private Logger logger = Logger.getLogger(getClass().getName());
 	@RequestMapping("/viewPost") 
 	public String viewPost(Authentication authentication,Model model,
 			@RequestParam(value="id") int postId
-			) {				
-			    Post post = postService.getPostById(postId);
-			    List<ApplyPost> applyPosts = applyPostService.getApplyPostsByPostId(postId);
+			) {
+		
+			Post post = postService.getPostById(postId);
+			List<ApplyPost> applyPosts = applyPostService.getApplyPostsByPostId(postId);
 			model.addAttribute("applyPosts",applyPosts);    
 			model.addAttribute("post",post);
 			return "post/postDetails";
@@ -203,6 +204,11 @@ private Logger logger = Logger.getLogger(getClass().getName());
 			model.addAttribute("type",type);
 			return "post/postSearchResult";
 		}
-		
+	
+	// handle employee apply job 
+	@RequestMapping("/applyPost")
+	public String applyPost() {
+		return null;
+	}
 }
 
