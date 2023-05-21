@@ -191,7 +191,8 @@ private Logger logger = Logger.getLogger(getClass().getName());
 		public String searchPosts(Model model,
 				@RequestParam(value = "type") int type,
 				@RequestParam(value = "searchQuery") String queryString,
-				@RequestParam(value="page",defaultValue = "1") int page) {
+				@RequestParam(value="page",defaultValue = "1") int page,
+				Authentication authentication) {
 			List<Post> posts;
 			if(type == 0) posts  = postService.getPostsByCategory(queryString, page);
 			else if(type == 1)posts  = postService.getPostsByCompanyName(queryString, page);
@@ -202,6 +203,8 @@ private Logger logger = Logger.getLogger(getClass().getName());
 			model.addAttribute("maxPage",(countPost-1)/5+1);
 			model.addAttribute("page",page);
 			model.addAttribute("type",type);
+			String username = authentication.getName();
+			model.addAttribute(username);
 			return "post/postSearchResult";
 		}
 	

@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -53,7 +54,7 @@ private JobType jobType;
 @JoinColumn(name="company_id")
 private Company company;
 
-@OneToMany(mappedBy = "post" ,cascade= CascadeType.ALL)
+@OneToMany(mappedBy = "post" ,cascade= CascadeType.ALL, fetch = FetchType.EAGER)
 private List<ApplyPost> applyPosts;
 
 public Post() {
@@ -168,7 +169,14 @@ public void setApplyPosts(List<ApplyPost> applyPosts) {
 	this.applyPosts = applyPosts;
 }
 
-
+public boolean getHasApplied(String username) {
+	List<ApplyPost> applyPosts1 = getApplyPosts();
+	for(ApplyPost applyPost:applyPosts1 ) {
+		if(applyPost.getUser().getUserName().equals(username)) return true; 
+	}
+	
+	return false;
+}
 
 
 

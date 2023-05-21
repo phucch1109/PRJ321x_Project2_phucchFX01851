@@ -116,6 +116,7 @@
 
   <!-- Modal content -->
   <div class="modal-content">
+    <h4 id="title-modal">Ứng tuyển</h4>
     <div class="close-btn">&times;</div>
     
   </div>
@@ -132,13 +133,15 @@
 
 					<div class="col-lg">
 						<p>${post.jobType.name}</p>
-						<h4>${post.title}</h4>
+						<h4 id="postName${post.id}">${post.title}</h4>
 						<span class="fas fa-building"></span><span>${post.company.name}</span><span
 							class="icon-room"></span><span>${post.company.address}</span>
 					</div>
 					<div class="col-sm">
-						
-							<button class="btn btn-primary float-right mx-2" id="apply-modal-btn">Apply Job</button>
+						<c:if test="${!post.getHasApplied(username)}">
+						<button class="btn btn-primary float-right mx-2 apply-modal-btn" id="apply-modal-btn${post.id}">Apply Job</button>
+						</c:if>
+							
 						
 					</div>
 				</div>
@@ -167,17 +170,23 @@
 	<script> 
 	// Get the modal
 	var modal = document.getElementById("myModal");
-
+	var title = document.getElementById("title-modal");
 	// Get the button that opens the modal
-	var btn = document.getElementById("apply-modal-btn");
-
+	var btn = document.getElementsByClassName("apply-modal-btn");
+	
 	// Get the <span> element that closes the modal
 	var span = document.getElementsByClassName("close-btn")[0];
 
 	// When the user clicks on the button, open the modal
-	btn.onclick = function() {
-	  modal.style.display = "block";
+	for(var i = 0 ; i< btn.length ;i++) {
+		btn[i].onclick = function() {
+			  modal.style.display = "block";
+			  var id = this.id.substring(15); //get post id
+			  var titlePostEl =  document.getElementById("postName"+id); //get element of post title
+			  title.innerHTML = "Ứng tuyển cho bài : " + titlePostEl.textContent;
+			}
 	}
+	
 
 	// When the user clicks on <span> (x), close the modal
 	span.onclick = function() {
