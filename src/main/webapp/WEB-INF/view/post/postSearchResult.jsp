@@ -74,7 +74,16 @@
 
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<style>
+#title-modal {
+display: inline-block;
+margin:12px 0px;
+}
+#cv-type-dropdown {
+margin:12px 0px;
+}
 
+</style>
 </head>
 <body>
 	<nav class="bg-light p-2">
@@ -86,42 +95,58 @@
 		<div class="alert alert-primary" role="alert">${message}</div>
 	</c:if>
 	<section>
-	<div class="container d-flex flex-column align-items-center">
+		<div class="container d-flex flex-column align-items-center">
 
-		
-				<form action="${pageContext.request.contextPath}/search">
-					
-					<div class="input-group mb-5" style="width: 800px">
-						<input type="text" name="searchQuery" class="form-control"
-							placeholder="Tìm kiếm">
-						<button class="btn btn-primary" type="submit">Tìm
-							kiếm</button>
-						<input style="margin-left:40px;" type="radio" name="type" value="0" <c:if test="${type==0}">checked="checked"</c:if>>		
-						<label>Công việc</label>		
-						<input style="margin-left:40px;" type="radio" name="type" value="1" <c:if test="${type==1}">checked="checked"</c:if>>	
-						<label >Công ty</label>	
-						<input style="margin-left:40px;" type="radio" name="type" value="2"  <c:if test="${type==2}">checked="checked"</c:if>>	
-						<label>Địa điểm</label>	
-						
-					</div>
-				</form>
-		
-		
-	</div>
+
+			<form action="${pageContext.request.contextPath}/search">
+
+				<div class="input-group mb-5" style="width: 800px">
+					<input type="text" name="searchQuery" class="form-control"
+						placeholder="Tìm kiếm">
+					<button class="btn btn-primary" type="submit">Tìm kiếm</button>
+					<input style="margin-left: 40px;" type="radio" name="type"
+						value="0" <c:if test="${type==0}">checked="checked"</c:if>>
+					<label>Công việc</label> <input style="margin-left: 40px;"
+						type="radio" name="type" value="1"
+						<c:if test="${type==1}">checked="checked"</c:if>> <label>Công
+						ty</label> <input style="margin-left: 40px;" type="radio" name="type"
+						value="2" <c:if test="${type==2}">checked="checked"</c:if>>
+					<label>Địa điểm</label>
+
+				</div>
+			</form>
+
+
+		</div>
 	</section>
-	
-	
+
+
 	<!-- The Modal -->
-<div id="myModal" class="modal">
+	<div id="myModal" class="modal">
 
-  <!-- Modal content -->
-  <div class="modal-content">
-    <h4 id="title-modal">Ứng tuyển</h4>
-    <div class="close-btn">&times;</div>
-    
-  </div>
+		<!-- Modal content -->
+		<div class="modal-content">
+		<div>
+		<h4 id="title-modal">Ứng tuyển</h4>
+				<div class="close-btn">&times;</div>
+		</div>
+		
+			<form action="${pageContext.request.contextPath}/applyJob">
+				<input type="hidden" name="postId" id="applyPostId"> 
+				<select
+					class="form-control" id="cv-type-dropdown" name="cv-submit-type">
+					<option value="1" selected="selected" label="Dùng CV đã cập nhập" />
+					<option value="2" label="Tải CV mới" />
+				</select>
+				<input type="file" name="file" id="cv-file-input" class="form-control"> 
+				<textarea name="description" class="form-control"></textarea>
+				<input type="submit" value="Ứng tuyển" class="form-control btn btn-primary">
+			</form>
 
-</div>
+
+		</div>
+
+	</div>
 
 	<main>
 		<div
@@ -139,10 +164,11 @@
 					</div>
 					<div class="col-sm">
 						<c:if test="${!post.getHasApplied(username)}">
-						<button class="btn btn-primary float-right mx-2 apply-modal-btn" id="apply-modal-btn${post.id}">Apply Job</button>
+							<button class="btn btn-primary float-right mx-2 apply-modal-btn"
+								id="apply-modal-btn${post.id}">Apply Job</button>
 						</c:if>
-							
-						
+
+
 					</div>
 				</div>
 			</c:forEach>
@@ -167,38 +193,38 @@
 		</div>
 
 	</main>
-	<script> 
-	// Get the modal
-	var modal = document.getElementById("myModal");
-	var title = document.getElementById("title-modal");
-	// Get the button that opens the modal
-	var btn = document.getElementsByClassName("apply-modal-btn");
-	
-	// Get the <span> element that closes the modal
-	var span = document.getElementsByClassName("close-btn")[0];
+	<script>
+		// Get the modal
+		var modal = document.getElementById("myModal");
+		var title = document.getElementById("title-modal");
+		// Get the button that opens the modal
+		var btn = document.getElementsByClassName("apply-modal-btn");
 
-	// When the user clicks on the button, open the modal
-	for(var i = 0 ; i< btn.length ;i++) {
-		btn[i].onclick = function() {
-			  modal.style.display = "block";
-			  var id = this.id.substring(15); //get post id
-			  var titlePostEl =  document.getElementById("postName"+id); //get element of post title
-			  title.innerHTML = "Ứng tuyển cho bài : " + titlePostEl.textContent;
+		// Get the <span> element that closes the modal
+		var span = document.getElementsByClassName("close-btn")[0];
+
+		// When the user clicks on the button, open the modal
+		for (var i = 0; i < btn.length; i++) {
+			btn[i].onclick = function() {
+				modal.style.display = "block";
+				var id = this.id.substring(15); //get post id
+				var titlePostEl = document.getElementById("postName" + id); //get element of post title
+				title.innerHTML = "Ứng tuyển cho bài : "
+						+ titlePostEl.textContent; // set title for modal
 			}
-	}
-	
+		}
 
-	// When the user clicks on <span> (x), close the modal
-	span.onclick = function() {
-	  modal.style.display = "none";
-	}
+		// When the user clicks on <span> (x), close the modal
+		span.onclick = function() {
+			modal.style.display = "none";
+		}
 
-	// When the user clicks anywhere outside of the modal, close it
-	window.onclick = function(event) {
-	  if (event.target == modal) {
-	    modal.style.display = "none";
-	  }
-	}
+		// When the user clicks anywhere outside of the modal, close it
+		window.onclick = function(event) {
+			if (event.target == modal) {
+				modal.style.display = "none";
+			}
+		}
 	</script>
 </body>
 </html>
