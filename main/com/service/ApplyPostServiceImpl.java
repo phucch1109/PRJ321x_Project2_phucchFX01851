@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 import com.dao.ApplyPostDao;
 import com.entity.ApplyPost;
+import com.entity.Post;
+import com.entity.User;
 
 @Service
 public class ApplyPostServiceImpl implements ApplyPostService{
@@ -40,4 +42,12 @@ public class ApplyPostServiceImpl implements ApplyPostService{
 		applyPost.setStatus(2);
 		applyPostDao.updateApplyPost(applyPost);
 	}
+	
+	@Override
+	@Transactional
+	public void addNewApplyPost(User user,Post post,byte[] file,String description) {
+		ApplyPost applyPost = new ApplyPost();
+		
+	}
+	
 }

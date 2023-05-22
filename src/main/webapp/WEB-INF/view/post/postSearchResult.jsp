@@ -82,6 +82,12 @@ margin:12px 0px;
 #cv-type-dropdown {
 margin:12px 0px;
 }
+#apply-description-input {
+height:300px
+}
+#cv-file-input {
+margin:12px 0px;
+}
 
 </style>
 </head>
@@ -132,14 +138,15 @@ margin:12px 0px;
 		</div>
 		
 			<form action="${pageContext.request.contextPath}/applyJob">
-				<input type="hidden" name="postId" id="applyPostId"> 
+				<input type="hidden" name="postId" id="post-id-input"> 
 				<select
-					class="form-control" id="cv-type-dropdown" name="cv-submit-type">
+					class="form-control" id="cv-type-dropdown" name="cvSubmitType">
 					<option value="1" selected="selected" label="Dùng CV đã cập nhập" />
 					<option value="2" label="Tải CV mới" />
 				</select>
-				<input type="file" name="file" id="cv-file-input" class="form-control"> 
-				<textarea name="description" class="form-control"></textarea>
+				<input type="file" name="file" id="cv-file-input" class="form-control" style="display:none;"> 
+				<label>Giới thiệu:</label>
+				<textarea cols="20" name="description" id="apply-description-input" class="form-control"></textarea>
 				<input type="submit" value="Ứng tuyển" class="form-control btn btn-primary">
 			</form>
 
@@ -208,9 +215,11 @@ margin:12px 0px;
 			btn[i].onclick = function() {
 				modal.style.display = "block";
 				var id = this.id.substring(15); //get post id
+				var postInput = document.getElementById("post-id-input"); 
+				postInput.value = id; // set hidden post id to apply job form modal
 				var titlePostEl = document.getElementById("postName" + id); //get element of post title
 				title.innerHTML = "Ứng tuyển cho bài : "
-						+ titlePostEl.textContent; // set title for modal
+						+ titlePostEl.textContent; // set title for apply job form modal
 			}
 		}
 
@@ -225,6 +234,12 @@ margin:12px 0px;
 				modal.style.display = "none";
 			}
 		}
+		
+		var fileInputEl = document.getElementById("cv-file-input");
+		$('#cv-type-dropdown').change(function() {
+			fileInputEl.classList.toggle("d-block")
+		})
+		
 	</script>
 </body>
 </html>

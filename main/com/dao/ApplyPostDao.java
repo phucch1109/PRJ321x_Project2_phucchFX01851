@@ -9,4 +9,5 @@ public interface ApplyPostDao {
 	public List<ApplyPost> getApplyPostsByPostId(int postId);
 	public ApplyPost getApplyPostById(int applyPostId);
 	public void updateApplyPost(ApplyPost applyPost);
+	public void addnewApplyPost(ApplyPost applyPost);
 }

@@ -50,4 +50,10 @@ public class ApplyPostDaoImpl implements ApplyPostDao{
 		Session currentSession = sessionFactory.getCurrentSession();
 		currentSession.update(applyPost);
 	}
+	
+	@Override
+	public void addnewApplyPost(ApplyPost applyPost) {
+		Session currentSession = sessionFactory.getCurrentSession();
+		currentSession.save(applyPost);
+	}
 }

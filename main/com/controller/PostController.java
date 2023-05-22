@@ -1,5 +1,6 @@
 package com.controller;
 
+import java.io.IOException;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.entity.ApplyPost;
 import com.entity.Category;
@@ -210,8 +212,35 @@ private Logger logger = Logger.getLogger(getClass().getName());
 	
 	// handle employee apply job 
 	@RequestMapping("/applyPost")
-	public String applyPost() {
-		return null;
+	public String applyPost(@RequestParam(value="file") MultipartFile inputFile,
+			@RequestParam(value="description") String description,
+			@RequestParam int cvSubmitType,
+			@RequestParam int postId,
+			Model model,
+			@RequestParam(value = "type") int type,
+			@RequestParam(value = "searchQuery") String queryString,
+			@RequestParam(value="page",defaultValue = "1") int page,
+			Authentication authentication
+			) {
+		byte[] file;
+		String username = authentication.getName();
+		User user = userService.findByUserName(username);
+		Post post = postService.getPostById(postId);
+		//set file
+		if(cvSubmitType == 1) {
+			file = user.getCvFile();
+		}else {
+			try {
+				file = inputFile.getBytes();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		
+		
+		model.addAttribute("message","applied for the job");
+		return searchPosts(model, type, queryString, page, authentication);
 	}
 }
 
