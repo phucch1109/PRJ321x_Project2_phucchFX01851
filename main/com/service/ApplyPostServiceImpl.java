@@ -1,5 +1,6 @@
 package com.service;
 
+import java.sql.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -47,7 +48,13 @@ public class ApplyPostServiceImpl implements ApplyPostService{
 	@Transactional
 	public void addNewApplyPost(User user,Post post,byte[] file,String description) {
 		ApplyPost applyPost = new ApplyPost();
-		
+		applyPost.setUser(user);
+		applyPost.setPost(post);
+		applyPost.setStatus(0);
+		applyPost.setText(description);
+		applyPost.setCvFile(file);
+		applyPost.setDateCreate(new Date(System.currentTimeMillis()));
+		applyPostDao.addnewApplyPost(applyPost);
 	}
 	
 }

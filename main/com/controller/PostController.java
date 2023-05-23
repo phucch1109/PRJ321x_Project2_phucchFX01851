@@ -206,15 +206,15 @@ private Logger logger = Logger.getLogger(getClass().getName());
 			model.addAttribute("page",page);
 			model.addAttribute("type",type);
 			String username = authentication.getName();
-			model.addAttribute(username);
+			model.addAttribute("username",username);
 			return "post/postSearchResult";
 		}
 	
 	// handle employee apply job 
-	@RequestMapping("/applyPost")
-	public String applyPost(@RequestParam(value="file") MultipartFile inputFile,
+	@PostMapping(value = "/applyPost")
+	public String applyPost(@RequestParam MultipartFile file,
 			@RequestParam(value="description") String description,
-			@RequestParam int cvSubmitType,
+			@RequestParam(value="cvSubmitType") int cvSubmitType,
 			@RequestParam int postId,
 			Model model,
 			@RequestParam(value = "type") int type,
@@ -222,21 +222,21 @@ private Logger logger = Logger.getLogger(getClass().getName());
 			@RequestParam(value="page",defaultValue = "1") int page,
 			Authentication authentication
 			) {
-		byte[] file;
+		byte[] inputFile = null;
 		String username = authentication.getName();
 		User user = userService.findByUserName(username);
 		Post post = postService.getPostById(postId);
 		//set file
 		if(cvSubmitType == 1) {
-			file = user.getCvFile();
+			inputFile = user.getCvFile();
 		}else {
 			try {
-				file = inputFile.getBytes();
+				inputFile = file.getBytes();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
-		
+		applyPostService.addNewApplyPost(user, post, inputFile, description);
 		
 		
 		model.addAttribute("message","applied for the job");

@@ -101,6 +101,14 @@ public class ApplyPost {
 	public void setPost(Post post) {
 		this.post = post;
 	}
+
+	public byte[] getCvFile() {
+		return cvFile;
+	}
+
+	public void setCvFile(byte[] cvFile) {
+		this.cvFile = cvFile;
+	}
 	
 	
 }

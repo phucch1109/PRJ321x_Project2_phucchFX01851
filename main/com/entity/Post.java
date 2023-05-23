@@ -169,13 +169,13 @@ public void setApplyPosts(List<ApplyPost> applyPosts) {
 	this.applyPosts = applyPosts;
 }
 
-public boolean getHasApplied(String username) {
-	List<ApplyPost> applyPosts1 = getApplyPosts();
-	for(ApplyPost applyPost:applyPosts1 ) {
-		if(applyPost.getUser().getUserName().equals(username)) return true; 
+public int getStatus(String username) {
+	//List<ApplyPost> applyPosts1 = getApplyPosts();
+	for(ApplyPost applyPost:applyPosts ) {
+		if(applyPost.getUser().getUserName().equals(username)) return applyPost.getStatus(); 
 	}
 	
-	return false;
+	return 4;
 }
 
 

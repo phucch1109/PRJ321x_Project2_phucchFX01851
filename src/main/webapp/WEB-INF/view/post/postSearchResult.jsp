@@ -88,6 +88,16 @@ height:300px
 #cv-file-input {
 margin:12px 0px;
 }
+.text-warning {
+float:right;
+color:#cfc75c!important;
+}
+.text-danger {
+float:right;
+}
+.text-success {
+float:right;
+}
 
 </style>
 </head>
@@ -136,8 +146,13 @@ margin:12px 0px;
 		<h4 id="title-modal">Ứng tuyển</h4>
 				<div class="close-btn">&times;</div>
 		</div>
-		
-			<form action="${pageContext.request.contextPath}/applyJob">
+			
+			<form method="POST" action="${pageContext.request.contextPath}/applyPost?${_csrf.parameterName}=${_csrf.token}" enctype="multipart/form-data" >
+						<!--used to retain search value after submit  -->
+						<input type="hidden" name="page" value="${j}">
+						<input type="hidden" name="searchQuery" value="${searchQuery}">
+						<input type="hidden" name="type" value="${type}">
+						
 				<input type="hidden" name="postId" id="post-id-input"> 
 				<select
 					class="form-control" id="cv-type-dropdown" name="cvSubmitType">
@@ -170,12 +185,19 @@ margin:12px 0px;
 							class="icon-room"></span><span>${post.company.address}</span>
 					</div>
 					<div class="col-sm">
-						<c:if test="${!post.getHasApplied(username)}">
+						<c:if test="${post.getStatus(username) == 4}">
 							<button class="btn btn-primary float-right mx-2 apply-modal-btn"
 								id="apply-modal-btn${post.id}">Apply Job</button>
 						</c:if>
-
-
+						<c:if test="${post.getStatus(username) == 0}">
+						<h4 class="text-warning">Applied(Pending)</h4>
+						</c:if>
+						<c:if test="${post.getStatus(username) == 1}">
+						<h4 class="text-success">Accepted</h4>
+						</c:if>
+						<c:if test="${post.getStatus(username) == 2}">
+						<h4 class="text-danger">Denied</h4>
+						</c:if>
 					</div>
 				</div>
 			</c:forEach>
