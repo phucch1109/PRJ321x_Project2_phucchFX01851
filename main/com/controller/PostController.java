@@ -1,5 +1,6 @@
 package com.controller;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.sql.Date;
 import java.text.ParseException;
@@ -10,6 +11,11 @@ import java.util.logging.Logger;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -141,6 +147,7 @@ private Logger logger = Logger.getLogger(getClass().getName());
 		return "post/postEdit";
 	}
 	
+	//handle edit form
 	@PostMapping("/editPost")
 	public String editPost(Authentication authentication,Model model,
 			@RequestBody @Valid @ModelAttribute(value="postForm") PostForm postForm,
@@ -157,6 +164,7 @@ private Logger logger = Logger.getLogger(getClass().getName());
 		return showPostsList(authentication, model, 1);
 	}
 	
+	//handle post detail
 	@RequestMapping("/viewPost") 
 	public String viewPost(Authentication authentication,Model model,
 			@RequestParam(value="id") int postId
@@ -168,6 +176,7 @@ private Logger logger = Logger.getLogger(getClass().getName());
 			model.addAttribute("post",post);
 			return "post/postDetails";
 		}
+	
 	
 	@RequestMapping("/approveApply")
 	public String approveApplyProcess(Authentication authentication,Model model,
@@ -237,10 +246,23 @@ private Logger logger = Logger.getLogger(getClass().getName());
 			}
 		}
 		applyPostService.addNewApplyPost(user, post, inputFile, description);
-		
-		
 		model.addAttribute("message","applied for the job");
 		return searchPosts(model, type, queryString, page, authentication);
 	}
+	
+	
+	// handle CV download from post detail
+	@RequestMapping(value = "/downloadCV")
+		public ResponseEntity<Resource> downloadFile(Authentication authentication,Model model,@RequestParam int applypostId) {
+        ApplyPost applyPost = applyPostService.getApplyPostById(applypostId);
+		byte[] bytes = applyPost.getCvFile();
+        InputStreamResource resource = new InputStreamResource(new ByteArrayInputStream(bytes));
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Content-Disposition", String.format("attachment; filename=your_file_name"));    
+        return ResponseEntity.ok()
+                .headers(headers)
+                .contentLength(bytes.length).contentType(new MediaType("application/octet-stream"))
+                .body(resource);
+		}
 }
 
