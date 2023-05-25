@@ -124,7 +124,15 @@
 						<h4>${applyPost.user.firstName} ${applyPost.user.lastName}</h4>
 						<p>Mô tả: ${applyPost.text}</p>
 						<span class="fas fa-building"></span><span>Ngày ứng tuyển:${applyPost.dateCreated}</span>
-						<br><span class="icon-room"></span><span>CVFILE template</span>
+						<br>
+						<c:if test="${not empty applyPost.cvFile}">
+						<c:url var="downloadLink" value="/downloadCV">
+						<c:param name="id" value="${applyPost.id}"></c:param>
+						</c:url>
+						<span class="icon-room"></span>
+						<a href="${downloadLink}">Mở CV</a>
+						</c:if>
+						<c:if test="${empty applyPost.cvFile}"><p>Không có CV!</c:if>
 					</div>
 					<div class="col-sm">
 					<!-- incase applypost is waiting for input -->

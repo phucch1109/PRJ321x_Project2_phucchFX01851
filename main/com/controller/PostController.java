@@ -237,8 +237,16 @@ private Logger logger = Logger.getLogger(getClass().getName());
 		Post post = postService.getPostById(postId);
 		//set file
 		if(cvSubmitType == 1) {
+			if(user.getCvFile() == null) {
+				model.addAttribute("errorMessage","Bạn phải cập nhập CV trước");
+				return searchPosts(model, type, queryString, page, authentication);
+			}
 			inputFile = user.getCvFile();
 		}else {
+			if(file.isEmpty()) {
+				model.addAttribute("errorMessage","Bạn phải chọn file trước");
+				return searchPosts(model, type, queryString, page, authentication);
+			}
 			try {
 				inputFile = file.getBytes();
 			} catch (IOException e) {
@@ -253,15 +261,15 @@ private Logger logger = Logger.getLogger(getClass().getName());
 	
 	// handle CV download from post detail
 	@RequestMapping(value = "/downloadCV")
-		public ResponseEntity<Resource> downloadFile(Authentication authentication,Model model,@RequestParam int applypostId) {
+		public ResponseEntity<Resource> downloadFile(Authentication authentication,Model model,@RequestParam(value="id") int applypostId) {
         ApplyPost applyPost = applyPostService.getApplyPostById(applypostId);
 		byte[] bytes = applyPost.getCvFile();
         InputStreamResource resource = new InputStreamResource(new ByteArrayInputStream(bytes));
         HttpHeaders headers = new HttpHeaders();
-        headers.set("Content-Disposition", String.format("attachment; filename=your_file_name"));    
+        headers.set("Content-Disposition", String.format("attachment; filename=" + applyPost.getUser().getFirstName()+"_"+applyPost.getPost().getTitle()+".pdf" ));    
         return ResponseEntity.ok()
                 .headers(headers)
-                .contentLength(bytes.length).contentType(new MediaType("application/octet-stream"))
+                .contentLength(bytes.length).contentType(MediaType.APPLICATION_PDF)
                 .body(resource);
 		}
 }

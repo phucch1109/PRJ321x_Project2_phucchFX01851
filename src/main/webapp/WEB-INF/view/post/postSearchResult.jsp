@@ -110,6 +110,9 @@ float:right;
 	<c:if test="${not empty message}">
 		<div class="alert alert-primary" role="alert">${message}</div>
 	</c:if>
+	<c:if test="${not empty errorMessage}">
+		<div class="alert alert-danger" role="alert">${errorMessage}</div>
+	</c:if>
 	<section>
 		<div class="container d-flex flex-column align-items-center">
 
