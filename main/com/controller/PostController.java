@@ -272,5 +272,20 @@ private Logger logger = Logger.getLogger(getClass().getName());
                 .contentLength(bytes.length).contentType(MediaType.APPLICATION_PDF)
                 .body(resource);
 		}
+	
+	 //showing user's posts
+		@RequestMapping("/postApplied")
+		public String showPostsAppliedList(Authentication authentication,Model model,
+				@RequestParam(value="page",defaultValue = "1") int page) {
+			String username = authentication.getName();
+			User user = userService.findByUserName(username);
+			List<Post> posts = postService.getPostUserApplied(user.getId(), page);
+			int countPost = postService.getCountByUserId(user.getId());
+			model.addAttribute("posts",posts);
+			model.addAttribute("maxPage",(countPost-1)/5+1);
+			model.addAttribute("page",page);
+			model.addAttribute("username",username);
+			return "post/postAppliedList";
+		}
 }
 

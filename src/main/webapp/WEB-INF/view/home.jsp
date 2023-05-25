@@ -149,6 +149,12 @@
 										sách bài đăng</button>
 								</a>
 							</security:authorize>
+							<security:authorize access="hasRole('EMPLOYEE')">
+								<a href="${pageContext.request.contextPath}/postApplied">
+									<button class="btn btn-primary py-2" type=submit>Danh
+										sách bài đã ứng tuyển</button>
+								</a>
+							</security:authorize>
 						</c:if>
 					</div>
 				</div>

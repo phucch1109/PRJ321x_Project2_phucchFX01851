@@ -169,4 +169,18 @@ public class PostDaoImpl implements PostDao{
 		long output = query.getSingleResult();
 		return (int)output;
 	}
+	
+	@Override
+	public List<Post> getPostUserApplied(int userId,int index) {
+		int maxResult = 5;
+		int offset = (index-1) *maxResult;
+		Session currentSession = sessionFactory.getCurrentSession();
+		String queryString = "select p from Post p join p.applyPosts ap where ap.user.id = " + userId ;
+		lastQuery = queryString;
+		Query<Post> query = currentSession.createQuery(queryString , Post.class);
+		query.setFirstResult(offset);
+		query.setMaxResults(maxResult);
+		List<Post> posts = query.getResultList();
+		return posts;
+	}
 }

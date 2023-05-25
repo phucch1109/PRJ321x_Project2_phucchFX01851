@@ -176,7 +176,7 @@ float:right;
 	<main>
 		<div
 			class="container d-flex align-items-center justify-content-center flex-column">
-
+			<c:if test="${empty posts}"><h4>Không có kết quả</h4> </c:if>
 			<c:forEach items="${posts}" var="post">
 				<div class="row p-2 align-items-center item-border"
 					style="width: 900px">

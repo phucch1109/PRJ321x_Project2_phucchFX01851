@@ -154,4 +154,14 @@ public class PostServiceImpl implements PostService{
 	public List<Post> getPostsByAddress(String name,int index) {
 		return postDao.getPostsByAddress(name, index);
 	}
+	
+	@Override
+	@Transactional
+	public List<Post> getPostUserApplied(int userId,int index) {
+		return postDao.getPostUserApplied(userId, index);
+	}
+	
+	
+	
+	
 }

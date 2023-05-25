@@ -19,4 +19,5 @@ public interface PostDao {
 	public int getCountOfLastSearchQuery();
 	public List<Post> getPostsByAddress(String name,int index);
 	public List<Post> getPostsByCategory(String name,int index);
+	public List<Post> getPostUserApplied(int userId,int index);
 }
