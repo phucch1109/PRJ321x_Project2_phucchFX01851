@@ -72,6 +72,13 @@
 	crossorigin="anonymous"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
+
+<style type="text/css">
+.category-item {
+width:200px;
+height:200px;
+}
+</style>
 </head>
 <body id="top">
 
@@ -163,68 +170,71 @@
 		<section class="site-section">
 			<!-- thanh tìm kiếm chỉ hiện thị đến employee -->
 			<security:authorize access="hasRole('EMPLOYEE')">
-				
-					<div class="container d-flex flex-column align-items-center">
 
-						<h2 class="section-title mb-2">Tìm kiếm</h2>
+				<div class="container d-flex flex-column align-items-center">
 
-						<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-							<li class="nav-item" role="presentation">
-								<button class="nav-link active" id="pills-home-tab"
-									data-bs-toggle="pill" data-bs-target="#pills-home"
-									type="button" role="tab" aria-controls="pills-home"
-									aria-selected="true">Tìm theo công việc</button>
-							</li>
-							<li class="nav-item" role="presentation">
-								<button class="nav-link" id="pills-profile-tab"
-									data-bs-toggle="pill" data-bs-target="#pills-profile"
-									type="button" role="tab" aria-controls="pills-profile"
-									aria-selected="false">Tìm theo công ty</button>
-							</li>
-							<li class="nav-item" role="presentation">
-								<button class="nav-link" id="pills-contact-tab"
-									data-bs-toggle="pill" data-bs-target="#pills-contact"
-									type="button" role="tab" aria-controls="pills-contact"
-									aria-selected="false">Tìm theo địa điểm</button>
-							</li>
-						</ul>
-						<div class="tab-content" id="pills-tabContent">
-							<div class="tab-pane fade show active" id="pills-home"
-								role="tabpanel" aria-labelledby="pills-home-tab">
-								<form action="${pageContext.request.contextPath}/search">
+					<h2 class="section-title mb-2">Tìm kiếm</h2>
+
+					<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+						<li class="nav-item" role="presentation">
+							<button class="nav-link active" id="pills-home-tab"
+								data-bs-toggle="pill" data-bs-target="#pills-home" type="button"
+								role="tab" aria-controls="pills-home" aria-selected="true">Tìm
+								theo công việc</button>
+						</li>
+						<li class="nav-item" role="presentation">
+							<button class="nav-link" id="pills-profile-tab"
+								data-bs-toggle="pill" data-bs-target="#pills-profile"
+								type="button" role="tab" aria-controls="pills-profile"
+								aria-selected="false">Tìm theo công ty</button>
+						</li>
+						<li class="nav-item" role="presentation">
+							<button class="nav-link" id="pills-contact-tab"
+								data-bs-toggle="pill" data-bs-target="#pills-contact"
+								type="button" role="tab" aria-controls="pills-contact"
+								aria-selected="false">Tìm theo địa điểm</button>
+						</li>
+					</ul>
+					<div class="tab-content" id="pills-tabContent">
+						<div class="tab-pane fade show active" id="pills-home"
+							role="tabpanel" aria-labelledby="pills-home-tab">
+							<form action="${pageContext.request.contextPath}/search">
 								<input type="hidden" name="type" value="0">
 								<div class="input-group mb-5" style="width: 800px">
-									<input type="text" name="searchQuery" class="form-control" placeholder="Tìm theo công việc">
+									<input type="text" name="searchQuery" class="form-control"
+										placeholder="Tìm theo công việc">
 									<button class="btn btn-outline-secondary" type="submit">Tìm
 										kiếm</button>
 								</div>
-								</form>
-							</div>
-							<div class="tab-pane fade" id="pills-profile" role="tabpanel"
-								aria-labelledby="pills-profile-tab">
-								<form action="${pageContext.request.contextPath}/search">
+							</form>
+						</div>
+						<div class="tab-pane fade" id="pills-profile" role="tabpanel"
+							aria-labelledby="pills-profile-tab">
+							<form action="${pageContext.request.contextPath}/search">
 								<input type="hidden" name="type" value="1">
 								<div class="input-group mb-5" style="width: 800px">
-									<input type="text" name="searchQuery" class="form-control" placeholder="Tìm theo công ty">
+									<input type="text" name="searchQuery" class="form-control"
+										placeholder="Tìm theo công ty">
 									<button class="btn btn-outline-secondary" type="submit">Tìm
 										kiếm</button>
 								</div>
-								</form>
-							</div>
-							<div class="tab-pane fade" id="pills-contact" role="tabpanel"
-								aria-labelledby="pills-contact-tab">
-								<form action="${pageContext.request.contextPath}/search">
+							</form>
+						</div>
+						<div class="tab-pane fade" id="pills-contact" role="tabpanel"
+							aria-labelledby="pills-contact-tab">
+							<form action="${pageContext.request.contextPath}/search">
 								<input type="hidden" name="type" value="2">
 								<div class="input-group mb-5" style="width: 800px">
-									<input type="text" name="searchQuery" class="form-control" placeholder="Tìm theo địa điểm">
+									<input type="text" name="searchQuery" class="form-control"
+										placeholder="Tìm theo địa điểm">
 									<button class="btn btn-outline-secondary" type="submit">Tìm
 										kiếm</button>
 								</div>
-								</form>
-								</div>
+							</form>
 						</div>
 					</div>
-				
+				</div>
+
 			</security:authorize>
 
 			<!-- Các công ty -->
@@ -311,41 +321,13 @@
 						<h2 class="section-title mb-2">Các danh mục nổi bật</h2>
 					</div>
 				</div>
-				<ul class="job-listings mb-5">
+				<ul class="job-listings mb-5 d-flex flex-row justify-content-between">
 					<c:forEach var="category" items="${categories}">
-						<li style="margin-bottom: 20px"
-							class="job-listing d-block d-sm-flex pb-3 pb-sm-0 align-items-center ">
-							<div
-								class="job-listing-about d-sm-flex custom-width w-100 justify-content-between mx-4">
-								<div class="job-listing-position custom-width  mb-3 mb-sm-0"
-									style="padding: 10px; width: 250px">
-									<!-- construct an detail link -->
-									<c:url var="detailLink" value="userDonationDetail">
-										<c:param name="id" value="#"></c:param>
-									</c:url>
-									<a href="${detailLink }" style="position: relative;">
-										<h2>${category.categoryName }</h2>
-									</a> <strong>${category.countPost}</strong>
-								</div>
-								<div class="job-listing-location mb-9 mb-sm-0 custom-width w-25"
-									style="padding: 10px;">
-									<span class="icon-room"></span> <span>${post.company.address }</span><br>
-									<strong>${post.company.name }</strong><br>
-								</div>
-								<div class="job-listing-meta custom-width w-20">
-									<p style="margin-top: 20px"
-										class="btn btn-primary py-2 updateBtn" data-toggle="modal"
-										aria-labelledby="exampleModalLabel" id="#exampleModal.id">Quyên
-										góp</p>
-									<p
-										style="margin-top: 20px; background-color: white !important;"
-										class="btn py-2">
-										<span style="color: white">Apply job</span>
-									</p>
-
-								</div>
-							</div>
-						</li>
+						<div style="padding: 20px 20px 0 0"
+							class="job-listing category-item">
+							<h2>${category.categoryName }</h2> 
+							<strong>${category.countPost} vị trí</strong>
+						</div>
 					</c:forEach>
 				</ul>
 			</div>
