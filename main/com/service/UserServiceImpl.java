@@ -1,6 +1,7 @@
 package com.service;
 
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -42,7 +43,9 @@ public class UserServiceImpl implements UserService {
 	@Transactional
 	public User findByUserName(String userName) {
 		// check the database if the user already exists
-		return userDao.findByUserName(userName);
+		User user = userDao.findByUserName(userName);
+		Hibernate.initialize(user.getRoles());
+		return user;
 	}
 
 	@Override

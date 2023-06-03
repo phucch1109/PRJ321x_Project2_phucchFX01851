@@ -105,7 +105,7 @@
 	</form> 
 	<!-- user avatar image -->
 	<c:if test="${empty base64Encoded}">	<img
-		src="${pageContext.request.contextPath}/avatar/11111111111111124.PNG"
+		src="${pageContext.request.contextPath}/avatar/defaultAvatar.jpg"
 		class="avatar"></c:if>
 	<c:if test="${not empty base64Encoded}"><img alt="img" class="avatar" src="data:image/jpeg;base64,${base64Encoded}"/>	</c:if>
 	

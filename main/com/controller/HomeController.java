@@ -115,6 +115,7 @@ public class HomeController {
 		User unModedUser = userService.findByUserName(user.getUserName());
 		user.setRoles(unModedUser.getRoles());
 		userService.update(user);
+		model.addAttribute("message","profile has been updated");
 		return showUserProfile(authentication, model);
 	}
 
@@ -123,6 +124,7 @@ public class HomeController {
 	public String updateCompany(Authentication authentication,Model model,
 			@ModelAttribute(value="company") Company company) {
 		companyService.update(company);
+		model.addAttribute("message","company has been updated");
 		return showUserProfile(authentication, model);
 	}
 	

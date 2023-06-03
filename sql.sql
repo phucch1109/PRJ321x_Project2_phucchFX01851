@@ -39,8 +39,8 @@ CREATE TABLE users (
   phoneNumber varchar(255),
   description nvarchar(255),
   company_id int,
-  avatar_id int,
-  cvFile_id int,
+  avatar mediumblob,
+  cvFile mediumblob,
   PRIMARY KEY (id),
   CONSTRAINT FK_USER_COMPANY FOREIGN KEY (company_id) 
   REFERENCES companies (id) 
@@ -123,33 +123,6 @@ VALUES
 (10,1);
 
 
--- 1 user can have many version of CV
-CREATE TABLE cv_files (
-id int auto_increment primary key,
-name nvarchar(255),
-dateCreated date,
-user_id int NOT NULL,
-CONSTRAINT userCv_fk FOREIGN KEY (user_id) REFERENCES users(id)
-);
-
-ALTER TABLE users
-ADD FOREIGN KEY (cvFile_id) REFERENCES cv_files(id);
-
-INSERT INTO cv_files (id,name,dateCreated,user_id)
-VALUES (1,"name",curdate(),1), (2,"name",curdate(),2), (3,"name",curdate(),3);
-
-
-CREATE TABLE avatar_files (
-id int auto_increment primary key,
-name varchar(255),
-dateCreated date,
-user_id int NOT NULL,
-CONSTRAINT userAvatar FOREIGN KEY (user_id) REFERENCES users(id)
-);
-
-ALTER TABLE users
-ADD FOREIGN KEY (avatar_id) REFERENCES avatar_files(id);
-
 -- job type
 CREATE TABLE job_types (
 id int primary key,
@@ -222,15 +195,14 @@ id int auto_increment primary key,
 dateCreated date,
 post_id int,
 user_id int,
-cvFile_id int,
+cvFile mediumblob,
 status int,
 text nvarchar(255),
 CONSTRAINT applyUser_fk FOREIGN KEY (user_id) REFERENCES users(id),
-CONSTRAINT applyPost_fk FOREIGN KEY (post_id) REFERENCES posts(id),
-CONSTRAINT applyCvFile_fk FOREIGN KEY (cvFile_id) REFERENCES cv_files(id)
+CONSTRAINT applyPost_fk FOREIGN KEY (post_id) REFERENCES posts(id)
 );
 
-INSERT INTO applyposts(id,dateCreated,post_id,user_id,cvFile_id,status,text) VALUES
+INSERT INTO applyposts(id,dateCreated,post_id,user_id,cvFile,status,text) VALUES
 (1,curdate(),14,8,null,0,"somthing"),
 (2,curdate(),14,9,null,0,"somthing"),
 (3,curdate(),14,10,null,0,"somthing"),

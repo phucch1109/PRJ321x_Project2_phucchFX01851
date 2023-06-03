@@ -143,10 +143,7 @@ height:200px;
 						<c:if test="${not empty user}">
 							<h2 class="text-white font-weight-bold">xin chào
 								${user.firstName}</h2>
-							<h2>
-								Role(s):
-								<security:authentication property="principal.authorities" />
-							</h2>
+							
 							<a href="${pageContext.request.contextPath}/profile">
 								<button class="btn btn-primary py-2" type=submit>Hồ sơ</button>
 							</a>
@@ -301,13 +298,7 @@ height:200px;
 									<span class="icon-room"></span> <span>${post.company.address }</span><br>
 									<strong>${post.company.name }</strong><br>
 								</div>
-								<div class="job-listing-meta custom-width w-20">
-									<p style="margin-top: 20px"
-										class="btn btn-primary py-2 updateBtn" data-toggle="modal"
-										aria-labelledby="exampleModalLabel" id="#exampleModal.id">Apply
-										job</p>
-
-								</div>
+								
 							</div>
 						</li>
 					</c:forEach>
