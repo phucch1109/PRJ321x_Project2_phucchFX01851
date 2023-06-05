@@ -68,6 +68,7 @@ public class UserServiceImpl implements UserService {
 			user.setRoles(Arrays.asList(roleDao.findRoleByName("ROLE_RECRUITER")));
 			Company company = companyDao.getCompanyById(companyId);
 			user.setCompany(company);
+			if(roleId == 3) user.setRoles(Arrays.asList(roleDao.findRoleByName("ROLE_RECRUITER"),roleDao.findRoleByName("ROLE_EMPLOYEE")));
 		}
 		
 		 // save user in the database

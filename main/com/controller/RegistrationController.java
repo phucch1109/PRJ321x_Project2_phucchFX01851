@@ -84,7 +84,7 @@ public class RegistrationController {
         }
         
       
-        if(companyId == -1 && roleId == 2) {
+        if(companyId == -1 && roleId != 1) {
        	companyId = companyService.addNewCompany(companyName);
         }
         logger.info("companyID :" +companyId);

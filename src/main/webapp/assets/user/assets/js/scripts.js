@@ -92,11 +92,14 @@ if(searchParams.has('alertMessage')) {
 		/*hide or show company input when role dropdown is selected*/
 		var addCompanyStatus = 0; //0 is employee selected ; 1 is choosing existing company ; 2 is input new company
 		$('#roleId1').change(function() {
-			if(addCompanyStatus== 0) {
+			var value = this.value;
+			
+			if(value!= 1) {
 				$("#company-input").css("display", "inline-table");
 				$("#new-company-btn").css("display", "block");
 				$('#companyId1').attr('disabled',false);
 				addCompanyStatus =1 ;
+				$("#new-company-btn1").text("add new company");
 			}else{
 			$("#new-company-input").css("display", "none");
 			$('#new-company-input-text').attr('disabled',true);
@@ -117,8 +120,9 @@ if(searchParams.has('alertMessage')) {
 				$("#new-company-input").css("display", "inline-table");
 				$('#companyId1').attr('disabled',true);
 				$('#new-company-input-text').attr('disabled',false);
+				$("#new-company-btn1").text("choose existed company");
 				addCompanyStatus = 2;		
-				alert (addCompanyStatus);  
+				
 			}
 			else{
 				$("#company-input").css("display", "inline-table");
@@ -126,7 +130,7 @@ if(searchParams.has('alertMessage')) {
 				$('#companyId1').attr('disabled',false);
 				$('#new-company-input-text').attr('disabled',true);
 				addCompanyStatus=1;		
-				 alert (addCompanyStatus);  
+				$("#new-company-btn1").text("add new company");
 			} 
 		});
 		

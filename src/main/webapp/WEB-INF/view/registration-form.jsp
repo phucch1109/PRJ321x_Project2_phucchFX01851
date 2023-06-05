@@ -1,16 +1,12 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%@ page contentType="text/html; charset=UTF-8" %>
 <!doctype html>
 <html lang="en">
 
 <head>
 
 <title>Register New User Form</title>
-
-<meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 
 
@@ -182,8 +178,9 @@
 								class="glyphicon glyphicon-user"></i></span> <select
 								class="form-control" id="roleId1" name="roleId">
 								<!-- Populating role option -->
-								<option value="1" selected="selected" label="Job finder" />
-								<option value="2" label="Recruiter" />
+								<option value="1" selected="selected" label="Người tìm việc" />
+								<option value="2" label="Nhà tuyển dụng" />
+								<option value="3" label="cả 2" />
 							</select>
 						</div>
 
@@ -209,7 +206,7 @@
 						<!-- show/hide company button -->
 						<div style="margin-top: 10px;display: none;" class="form-group" id="new-company-btn" >
 							<div class="col-sm-6 controls">
-								<button type="button" class="btn btn-primary">Add new company</button>
+								<button type="button" class="btn btn-primary" id="new-company-btn1">Add new company</button>
 							</div>
 						</div>
 						<!-- Register Button -->
