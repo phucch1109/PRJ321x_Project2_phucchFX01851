@@ -59,18 +59,15 @@ public class UserServiceImpl implements UserService {
 		user.setLastName(crmUser.getLastName());
 		user.setEmail(crmUser.getEmail());
 		user.setPhoneNumber(crmUser.getPhoneNumber());
-		
-		
 		// give user a role (and company)
 		if(roleId == 1)
 		user.setRoles(Arrays.asList(roleDao.findRoleByName("ROLE_EMPLOYEE")));
 		else {
 			user.setRoles(Arrays.asList(roleDao.findRoleByName("ROLE_RECRUITER")));
+			if(roleId == 3) user.setRoles(Arrays.asList(roleDao.findRoleByName("ROLE_RECRUITER"),roleDao.findRoleByName("ROLE_EMPLOYEE")));
 			Company company = companyDao.getCompanyById(companyId);
 			user.setCompany(company);
-			if(roleId == 3) user.setRoles(Arrays.asList(roleDao.findRoleByName("ROLE_RECRUITER"),roleDao.findRoleByName("ROLE_EMPLOYEE")));
 		}
-		
 		 // save user in the database
 		userDao.save(user);
 	}

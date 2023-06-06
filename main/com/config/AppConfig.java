@@ -2,9 +2,11 @@ package com.config;
 
 import java.beans.PropertyVetoException;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.Properties;
 import java.util.logging.Logger;
 
+import javax.servlet.Filter;
 import javax.sql.DataSource;
 
 import org.hibernate.SessionFactory;
@@ -13,10 +15,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.env.Environment;
+import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.multipart.support.MultipartFilter;
 import org.springframework.web.servlet.ViewResolver;
@@ -160,7 +165,17 @@ public class AppConfig implements WebMvcConfigurer  {
 	   registry.addResourceHandler("/cv/**").addResourceLocations("/storage/cv/");
 	}
 	
-
+	@Bean
+	public StringHttpMessageConverter stringHttpMessageConverter() {
+	    return new StringHttpMessageConverter(Charset.forName("UTF-8"));
+	}
+	@Bean
+	public Filter characterEncodingFilter() {
+	    CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
+	    characterEncodingFilter.setEncoding("UTF-8");
+	    characterEncodingFilter.setForceEncoding(true);
+	    return characterEncodingFilter;
+	}
 }
 
 

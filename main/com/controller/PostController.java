@@ -2,6 +2,8 @@ package com.controller;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -9,6 +11,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import javax.validation.Valid;
+import javax.validation.metadata.MethodType;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
@@ -24,6 +27,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -148,19 +152,20 @@ private Logger logger = Logger.getLogger(getClass().getName());
 	}
 	
 	//handle edit form
-	@PostMapping("/editPost")
+	@RequestMapping(value = "/editPost", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE + "; charset=utf-8")
 	public String editPost(Authentication authentication,Model model,
 			@RequestBody @Valid @ModelAttribute(value="postForm") PostForm postForm,
 			BindingResult theBindingResult,
 			@RequestParam(value = "id") int postId
 			) {
+		
 		if(theBindingResult.hasErrors()) {
 			return showEditPost(authentication,model,postForm,postId);
 		}
 		String username = authentication.getName();
 		User user = userService.findByUserName(username);	
 		postService.updatePost(postForm, user,postId);
-		model.addAttribute("message","the post has been updated");
+		model.addAttribute("message","the post has been updated có " + postForm.getTitle());
 		return showPostsList(authentication, model, 1);
 	}
 	
