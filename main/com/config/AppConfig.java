@@ -55,6 +55,7 @@ public class AppConfig implements WebMvcConfigurer  {
 		
 		viewResolver.setPrefix("/WEB-INF/view/");
 		viewResolver.setSuffix(".jsp");
+//		viewResolver.setContentType("text/html;charset=UTF-8");
 		
 		return viewResolver;
 	}
@@ -166,11 +167,7 @@ public class AppConfig implements WebMvcConfigurer  {
 	}
 	
 	@Bean
-	public StringHttpMessageConverter stringHttpMessageConverter() {
-	    return new StringHttpMessageConverter(Charset.forName("UTF-8"));
-	}
-	@Bean
-	public Filter characterEncodingFilter() {
+	public Filter encodingFilter() {
 	    CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
 	    characterEncodingFilter.setEncoding("UTF-8");
 	    characterEncodingFilter.setForceEncoding(true);

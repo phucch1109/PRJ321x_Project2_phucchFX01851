@@ -86,17 +86,5 @@ public void setCategoryId(int categoryId) {
 	this.categoryId = categoryId;
 }
  
-public void convertASCCItoUTF8() {
-	try {
-		title = new String(title.getBytes("UTF-8"), "UTF-8");
-		description = new String(description.getBytes("UTF-8"), "UTF-8");
-		experience  = new String(experience.getBytes("UTF-8"), "UTF-8");
-		numberOfRecruit  = new String(numberOfRecruit.getBytes("UTF-8"), "UTF-8");
-		salary  = new String(salary.getBytes("UTF-8"), "UTF-8");
-		System.out.println(title);
-	} catch (UnsupportedEncodingException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
-}
+
 }

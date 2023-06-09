@@ -1,5 +1,7 @@
 package com.config;
 
+import javax.servlet.Filter;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,6 +11,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.csrf.CsrfFilter;
 
 import com.service.UserService;
 
@@ -22,6 +25,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
     @Autowired
     private CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
+    
+    @Autowired
+    private Filter encodingFilter;
     
    @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -44,7 +50,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.and()
 			.logout().permitAll()
 			.and()
-			.exceptionHandling().accessDeniedPage("/access-denied");
+			.exceptionHandling().accessDeniedPage("/access-denied")
+			.and()
+			.addFilterBefore(encodingFilter, CsrfFilter.class);
 		
 	}
 	

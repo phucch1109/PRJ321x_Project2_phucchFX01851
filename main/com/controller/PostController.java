@@ -152,7 +152,7 @@ private Logger logger = Logger.getLogger(getClass().getName());
 	}
 	
 	//handle edit form
-	@RequestMapping(value = "/editPost", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE + "; charset=utf-8")
+	@PostMapping(value = "/editPost")
 	public String editPost(Authentication authentication,Model model,
 			@RequestBody @Valid @ModelAttribute(value="postForm") PostForm postForm,
 			BindingResult theBindingResult,
@@ -165,7 +165,7 @@ private Logger logger = Logger.getLogger(getClass().getName());
 		String username = authentication.getName();
 		User user = userService.findByUserName(username);	
 		postService.updatePost(postForm, user,postId);
-		model.addAttribute("message","the post has been updated có " + postForm.getTitle());
+		model.addAttribute("message","bài viết " + postForm.getTitle() +" đã được cập nhật");
 		return showPostsList(authentication, model, 1);
 	}
 	
